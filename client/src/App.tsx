@@ -1,10 +1,8 @@
-import { Container, Typography } from "@mui/material";
+import { Homepage } from "./pages/Homepage";
 
 function App() {
   return (
-    <Container>
-      <Typography variant="h2">Hello World!</Typography>
-    </Container>
+    <Homepage></Homepage>
   );
 }
 
