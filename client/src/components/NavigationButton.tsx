@@ -7,7 +7,11 @@ type NavigationButtonProps = {
 
 export const NavigationButton = ({ title, path }: NavigationButtonProps) => {
   return (
-    <Box className="navbar button" onClick={() => alert(path)} sx={{ mx: "1vw", cursor:"pointer" }}>
+    <Box
+      className="navbar button"
+      onClick={() => alert(path)}
+      sx={{ mx: "5vw", cursor: "pointer", whiteSpace: "nowrap" }}
+    >
       <Typography variant="h6" fontSize={16}>
         {title}
       </Typography>

@@ -1,12 +1,12 @@
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { NavigationButton } from "./NavigationButton";
 
 export const NavigationMenu = () => {
   return (
-    <Container disableGutters sx={{ mt: -1 }}>
+    <Container disableGutters sx={{ mt: 1 }}>
       <AppBar
         position="static"
         sx={{
@@ -16,7 +16,7 @@ export const NavigationMenu = () => {
           boxShadow: "none",
         }}
       >
-        <Toolbar sx={{display:"flex", justifyContent: "space-evenly"}}>
+        <Toolbar sx={{ display: "flex", height:"100px",justifyContent: "space-evenly" }}>
           <Box sx={{ maxWidth: "5%", minWidth: "120px" }}>
             <img
               src="https://images.squarespace-cdn.com/content/v1/5cd90f9a81551228736aaa01/1559565680227-38K8XVENP2S8KOR7GP2Z/placeholder.com-logo1.png?format=2500w"
@@ -27,7 +27,7 @@ export const NavigationMenu = () => {
           <NavigationButton title="Products" path="/" />
           <NavigationButton title="View Analytics" path="/" />
 
-          
+          <Button variant="contained" sx={{width:"110px", height:"40px", borderRadius:"5px"}}>Contact</Button>
         </Toolbar>
       </AppBar>
     </Container>
