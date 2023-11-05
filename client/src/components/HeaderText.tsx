@@ -4,7 +4,7 @@ import Fade from "@mui/material/Fade";
 
 export const HeaderText = () => {
   return (
-    <Box sx={{ mb: 5 }}>
+    <Box sx={{ m: 5 }}>
       <Fade in={true} timeout={1600} mountOnEnter unmountOnExit>
         <Typography
           variant="h2"
