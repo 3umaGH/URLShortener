@@ -10,6 +10,9 @@ import {
   Typography,
 } from "@mui/material";
 
+import Slide from "@mui/material/Slide";
+import Fade from "@mui/material/Fade";
+
 import LockIcon from "@mui/icons-material/Lock";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -19,26 +22,37 @@ export const Homepage = () => {
   return (
     <Box sx={{ backgroundColor: "#f7f7f7" }}>
       <h2>navbar</h2>
-      <Box sx={{ textAlign: "center" }}>
-        <Box sx={{ mb: 15 }}>
-          <Typography variant="h2" fontSize={{ lg: 64, xs: 32 }}>
-            <b>
-              Make every <b style={{ color: "#3477eb" }}>connection</b> count
-            </b>
-          </Typography>
 
-          <Typography
-            variant="body1"
-            fontSize={{ lg: 28, xs: 16 }}
-            sx={{ color: "#565657" }}
-            lineHeight={1.4}
-          >
-            Shorten Your Links, Lengthen Your Possibilities with <b>Short.ly!</b>
-            <br />
-            Track what's thriving, and what's not, effortlessly.
-          </Typography>
+      <Box sx={{ textAlign: "center" }}>
+        <Box sx={{ mb: 5 }}>
+          <Fade in={true} timeout={1800} mountOnEnter unmountOnExit>
+            <Typography
+              variant="h2"
+              fontSize={{ xs: 26, sm: 44, md: 64 }}
+              sx={{ mb: 1.5 }}
+            >
+              <b>
+                Make every <b style={{ color: "#3477eb" }}>connection</b> count
+              </b>
+            </Typography>
+          </Fade>
+
+          <Fade in={true} timeout={1800} mountOnEnter unmountOnExit>
+            <Typography
+              variant="body1"
+              fontSize={{ xs: 18, sm: 20, md: 28 }}
+              sx={{ color: "#565657" }}
+              lineHeight={1.4}
+            >
+              Shorten Your Links, Lengthen Your Possibilities with{" "}
+              <b>Short.ly!</b>
+              <br />
+              Track what's thriving, and what's not, effortlessly.
+            </Typography>
+          </Fade>
         </Box>
 
+        <Slide direction="down" in={true} timeout={600} mountOnEnter unmountOnExit>
         <Container>
           <Paper
             elevation={3}
@@ -124,8 +138,11 @@ export const Homepage = () => {
                     </Typography>
                   </Box>
                 </Grid>
-                <Grid item xs={12} md={4} sx={{ textAlign: "left" }}>
-                  <Button variant="contained" sx={{ width:"100%", p: 1.5, px:4 }}>
+                <Grid item xs={12} md={3.5} sx={{ textAlign: "left" }}>
+                  <Button
+                    variant="contained"
+                    sx={{ width: "100%", p: 1.5, px: 4 }}
+                  >
                     Sign up and get your link
                   </Button>
                 </Grid>
@@ -134,53 +151,50 @@ export const Homepage = () => {
                     <b>No registration required. Your free plan includes:</b>
                   </Typography>
 
-  
-                    <ul
+                  <ul
+                    style={{
+                      padding: 0,
+                      margin: 0,
+                      listStyleType: "none",
+                    }}
+                  >
+                    <li style={{ display: "inline-block", marginRight: "8px" }}>
+                      <CheckCircleOutlinedIcon
+                        fontSize="medium"
+                        sx={{
+                          color: "#2870f7",
+                          position: "relative",
+                          top: "4px",
+                          mr: 1,
+                        }}
+                      />
+                      Short links
+                    </li>
+                    <li
                       style={{
-                        padding: 0,
-                        margin: 0,
-                        listStyleType: "none",
+                        display: "inline-block",
+                        marginRight: "8px",
+                        marginLeft: "18px",
                       }}
                     >
-                      <li
-                        style={{ display: "inline-block", marginRight: "8px" }}
-                      >
-                        <CheckCircleOutlinedIcon
-                          fontSize="medium"
-                          sx={{
-                            color: "#2870f7",
-                            position: "relative",
-                            top: "4px",
-                            mr: 1,
-                          }}
-                        />
-                        Short links
-                      </li>
-                      <li
-                        style={{
-                          display: "inline-block",
-                          marginRight: "8px",
-                          marginLeft: "18px",
+                      <CheckCircleOutlinedIcon
+                        fontSize="medium"
+                        sx={{
+                          color: "#2870f7",
+                          position: "relative",
+                          top: "4px",
+                          mr: 1,
                         }}
-                      >
-                        <CheckCircleOutlinedIcon
-                          fontSize="medium"
-                          sx={{
-                            color: "#2870f7",
-                            position: "relative",
-                            top: "4px",
-                            mr: 1,
-                          }}
-                        />
-                        Link analytics
-                      </li>
-                    </ul>
-    
+                      />
+                      Link analytics
+                    </li>
+                  </ul>
                 </Grid>
               </Grid>
             </Container>
           </Paper>
         </Container>
+        </Slide>
       </Box>
       <h2>footer</h2>
     </Box>
