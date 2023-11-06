@@ -16,13 +16,54 @@ body {
 }
 
 .navbar.button:after {
-  display:block;
-  content: '';
-  border-bottom: solid 2px #3477eb;  
-  transform: scaleX(0);  
+  display: block;
+  content: "";
+  border-bottom: solid 2px #3477eb;
+  transform: scaleX(0);
   transition: transform 250ms ease-in-out;
 }
 
 .navbar.button:hover:after {
   transform: scaleX(0.8);
+}
+
+.formTabs {
+  list-style: none;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  padding: 0px;
+  margin-bottom: 0px;
+}
+
+.formTabs.button {
+  cursor: pointer;
+
+  padding: 10px 20px 10px;
+
+  border-color: #c4c4c4;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+  transition: background-color 1s, border-color 1s;
+}
+
+.formTabs.button:not(.active):hover {
+  background-color: rgb(189, 189, 189);
+  border-color: #c4c4c4;
+}
+
+.formTabs.active {
+  background-color: white;
+
+  border-width: 2px 2px 0 2px;
+  border-color: #c4c4c4;
+  border-style: solid;
+}
+
+.icon.centerTop {
+  position: relative;
+  top: 5px;
 }

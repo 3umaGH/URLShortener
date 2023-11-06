@@ -16,8 +16,18 @@ import LockIcon from "@mui/icons-material/Lock";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
+import InsertLinkOutlinedIcon from "@mui/icons-material/InsertLinkOutlined";
+import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
+import { FormTabButton } from "./FormTabButton";
+import { useState } from "react";
 
 export const LinkForm = () => {
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const handlePageSwitch = (pageID: number) => {
+    setCurrentPage(pageID);
+  };
+
   return (
     <Box sx={{ textAlign: "center" }}>
       <Slide
@@ -28,7 +38,35 @@ export const LinkForm = () => {
         unmountOnExit
       >
         <Container>
+          <ul className="formTabs">
+            <FormTabButton
+              pageID={0}
+              currentPage={currentPage}
+              pageSwitchCallback={handlePageSwitch}
+            >
+              <InsertLinkOutlinedIcon
+                className="icon centerTop"
+                sx={{ mr: 1 }}
+              />
+              <Typography variant="caption" fontSize={18}>
+                Short link
+              </Typography>
+            </FormTabButton>
+
+            <FormTabButton
+              pageID={1}
+              currentPage={currentPage}
+              pageSwitchCallback={handlePageSwitch}
+            >
+              <BarChartOutlinedIcon className="icon centerTop" sx={{ mr: 1 }} />
+              <Typography variant="caption" fontSize={18}>
+                Analytics
+              </Typography>
+            </FormTabButton>
+
+          </ul>
           <Paper
+            className="linkForm"
             elevation={3}
             sx={{
               textAlign: "center",
@@ -82,11 +120,10 @@ export const LinkForm = () => {
                   <InputLabel htmlFor={"back-half-field"}>
                     <b>Enter a back-half</b> (optional){" "}
                     <InfoOutlinedIcon
+                      className="icon centerTop"
                       fontSize="small"
                       sx={{
                         color: "gray",
-                        position: "relative",
-                        top: "2px",
                       }}
                     />
                   </InputLabel>
@@ -101,11 +138,10 @@ export const LinkForm = () => {
                   <Box sx={{ backgroundColor: "#ecfdff", padding: 1.5 }}>
                     <Typography variant="subtitle1" sx={{ color: "#007c8c" }}>
                       <AutoAwesomeIcon
+                        className="icon centerTop"
                         fontSize="small"
                         sx={{
                           color: "#65e6e6",
-                          position: "relative",
-                          top: "4px",
                           mr: 1,
                         }}
                       />
@@ -135,11 +171,10 @@ export const LinkForm = () => {
                   >
                     <li style={{ display: "inline-block", marginRight: "8px" }}>
                       <CheckCircleOutlinedIcon
+                        className="icon centerTop"
                         fontSize="medium"
                         sx={{
                           color: "#2870f7",
-                          position: "relative",
-                          top: "4px",
                           mr: 1,
                         }}
                       />
@@ -153,11 +188,10 @@ export const LinkForm = () => {
                       }}
                     >
                       <CheckCircleOutlinedIcon
+                        className="icon centerTop"
                         fontSize="medium"
                         sx={{
                           color: "#2870f7",
-                          position: "relative",
-                          top: "4px",
                           mr: 1,
                         }}
                       />
