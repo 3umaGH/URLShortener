@@ -1,5 +1,5 @@
 
-import { LinkForm } from "../components/LinkForm";
+import { LinkForm } from "../components/LinkForm/LinkForm";
 import { HeaderText } from "../components/HeaderText";
 import { Layout } from "../components/Layout";
 

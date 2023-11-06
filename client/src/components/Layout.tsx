@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { NavigationMenu } from "./NavigationMenu";
+import { NavigationMenu } from "./NavigationBar/NavigationMenu";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
