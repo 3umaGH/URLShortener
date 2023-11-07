@@ -7,15 +7,16 @@ import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import { FormTabButton } from "./FormTabButton";
 import { useState } from "react";
 import { ShortLink } from "./pages/ShortLink";
+import { Analytics } from "./pages/Analytics";
 
 export const LinkForm = () => {
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const pages = [ // <PageElement> key=id
+  const pages = [
+    // <PageElement> key=id
     <ShortLink key={0} />,
-    <ShortLink key={1} />
-
-];
+    <Analytics key={1} />,
+  ];
 
   const handlePageSwitch = (pageID: number) => {
     setCurrentPage(pageID);
@@ -58,12 +59,17 @@ export const LinkForm = () => {
             </FormTabButton>
           </ul>
           <Paper
-            className="linkForm"
             elevation={3}
             sx={{
+              position: "relative",
               textAlign: "center",
               backgroundColor: "white",
               borderRadius: "10px",
+
+              borderColor: "red",
+              border: "solid 3px #c4c4c4",
+
+              zIndex: 0,
             }}
           >
             <Container sx={{ p: 4 }}>

@@ -1,17 +1,19 @@
 import {
-    Box,
-    Button,
-    Grid,
-    InputAdornment,
-    InputLabel,
-    TextField,
-    Typography,
-  } from "@mui/material";
-  
-  import LockIcon from "@mui/icons-material/Lock";
-  import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-  import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-  import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
+  Box,
+  Button,
+  Grid,
+  InputAdornment,
+  InputLabel,
+  TextField,
+  Typography,
+} from "@mui/material";
+
+import LockIcon from "@mui/icons-material/Lock";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
+
+import { Tip } from "../../Tip";
 
 export const ShortLink = () => {
   return (
@@ -23,7 +25,7 @@ export const ShortLink = () => {
       </Grid>
 
       <Grid item xs={12} sx={{ textAlign: "left" }}>
-        <InputLabel htmlFor={"long-link-field"}>
+        <InputLabel htmlFor={"long-link-field"} sx={{mb:1}}>
           <b>Paste a long URL</b>
         </InputLabel>
         <TextField
@@ -34,7 +36,7 @@ export const ShortLink = () => {
         />
       </Grid>
       <Grid item xs={11} md={4} sx={{ textAlign: "left" }}>
-        <InputLabel htmlFor={"domain-link-field"}>
+        <InputLabel htmlFor={"domain-link-field"} sx={{mb:1}}>
           <b>Domain</b>
         </InputLabel>
         <TextField
@@ -57,15 +59,17 @@ export const ShortLink = () => {
         <Typography variant="h5">/</Typography>
       </Grid>
       <Grid item xs={11.5} md={7.5} sx={{ textAlign: "left" }}>
-        <InputLabel htmlFor={"back-half-field"}>
+        <InputLabel htmlFor={"back-half-field"} sx={{mb:0.5}}>
           <b>Enter a back-half</b> (optional){" "}
-          <InfoOutlinedIcon
-            className="icon centerTop"
-            fontSize="small"
-            sx={{
-              color: "gray",
-            }}
-          />
+          <Tip text="Add your own words at the end of a link (e.g., “short.ly/twitter_bits” instead of “short.ly/2ZonlUz”)">
+            <InfoOutlinedIcon
+              className="icon centerTop"
+              fontSize="small"
+              sx={{
+                color: "gray",
+              }}
+            />
+          </Tip>
         </InputLabel>
         <TextField
           fullWidth
