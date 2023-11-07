@@ -15,6 +15,7 @@ body {
   padding: 0;
 }
 
+
 .navbar.button:after {
   display: block;
   content: "";
@@ -32,7 +33,7 @@ body {
 
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
 
   padding: 0px;
   margin-bottom: 0px;
@@ -40,18 +41,22 @@ body {
 
 .formTabs.button {
   cursor: pointer;
-
+  position: relative;
   padding: 10px 20px 10px;
 
-  border-color: #c4c4c4;
+  margin: -3px 1vw;
+
+  border-color: transparent;
+  border-style: solid;
+  border-width: 2px 2px 0 2px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 
-  transition: background-color 1s, border-color 1s;
+  transition: background-color 0.2s;
+  z-index: 1;
 }
 
 .formTabs.button:not(.active):hover {
-  
   background-color: rgb(189, 189, 189);
   border-color: #c4c4c4;
 }
@@ -61,7 +66,6 @@ body {
 
   border-width: 2px 2px 0 2px;
   border-color: #c4c4c4;
-  border-style: solid;
 }
 
 .icon.centerTop {

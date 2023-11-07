@@ -9,11 +9,15 @@ export const NavigationMenu = () => {
   const logoSrc = "https://placeholderlogo.com/img/placeholder-logo-4.png";
   const paths = [
     { title: "Products", link: "/" },
-    { title: "View Analytics", link: "/" },
+    { title: "Analytics", link: "/" },
   ];
 
   return (
-    <Container disableGutters maxWidth={false} sx={{ maxWidth: "1300px" }}>
+    <Container
+      disableGutters
+      maxWidth={false}
+      sx={{ maxWidth: "1300px", alignItems: "center" }}
+    >
       <AppBar
         position="static"
         sx={{
@@ -37,13 +41,21 @@ export const NavigationMenu = () => {
             <img src={logoSrc} alt="Logo"></img>
           </Box>
 
-          {paths.map((path) => (
-            <NavigationButton
-              key={path.title}
-              title={path.title}
-              path={path.link}
-            />
-          ))}
+          <Box
+            sx={{
+              display: "inline-flex",
+              width: { xs: "100%", md: "50%" },
+              justifyContent: "center",
+            }}
+          >
+            {paths.map((path) => (
+              <NavigationButton
+                key={path.title}
+                title={path.title}
+                path={path.link}
+              />
+            ))}
+          </Box>
 
           <Button
             variant="contained"
