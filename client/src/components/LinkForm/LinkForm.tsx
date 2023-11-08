@@ -12,22 +12,45 @@ import { Analytics } from "./pages/Analytics";
 export const LinkForm = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const formPages = [
+  type VisiblePageProps = {
+    visible: true;
+    id: number;
+    title: string;
+    icon: JSX.Element;
+    pageElement: JSX.Element;
+  };
+
+  type HiddenPageProps = {
+    visible: false;
+    id: number;
+    pageElement: JSX.Element;
+  };
+
+  type FormPageProps = VisiblePageProps | HiddenPageProps;
+
+  const formPages: FormPageProps[] = [
     {
       id: 0,
       title: "Short Link",
+      visible: true,
       icon: <InsertLinkOutlinedIcon />,
       pageElement: <ShortLink />,
     },
     {
       id: 1,
       title: "Analytics",
+      visible: true,
       icon: <BarChartOutlinedIcon />,
+      pageElement: <Analytics />,
+    },
+    {
+      id: 2,
+      visible: false,
       pageElement: <Analytics />,
     },
   ];
 
-  const handlePageSwitch = (pageID: number) => {
+  const navigatePage = (pageID: number) => {
     setCurrentPage(pageID);
   };
 
@@ -43,20 +66,25 @@ export const LinkForm = () => {
         <Container>
           <ul className="formTabs">
             {formPages.map((page) => {
-              return (
-                <FormTabButton
-                  pageID={page.id}
-                  currentPage={currentPage}
-                  pageSwitchCallback={handlePageSwitch}
-                >
-                  <Box className="icon centerTop" sx={{ mr: { xs: 0, md: 1 } }}>
-                    {page.icon}
-                  </Box>
-                  <Typography variant="caption" fontSize={18}>
-                    {page.title}
-                  </Typography>
-                </FormTabButton>
-              );
+              if (page.visible)
+                return (
+                  <FormTabButton
+                    key={page.id}
+                    pageID={page.id}
+                    currentPage={currentPage}
+                    pageSwitchCallback={navigatePage}
+                  >
+                    <Box
+                      className="icon centerTop"
+                      sx={{ mr: { xs: 0, md: 1 } }}
+                    >
+                      {page.icon}
+                    </Box>
+                    <Typography variant="caption" fontSize={18}>
+                      {page.title}
+                    </Typography>
+                  </FormTabButton>
+                );
             })}
           </ul>
           <Paper
