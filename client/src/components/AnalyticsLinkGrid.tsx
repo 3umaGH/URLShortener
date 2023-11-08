@@ -10,7 +10,7 @@ export const AnalyticsGrid = ({
 }: {
   navigatePage: (pageID: number) => void;
 }) => {
-  const [tableRows, setTableRows] = useState([
+  const [tableRows /*,setTableRows*/] = useState([
     {
       id: 0,
       uuid: "asdfasdf",
@@ -28,7 +28,12 @@ export const AnalyticsGrid = ({
     return (
       <Container sx={{ m: 2 }}>
         <Tooltip title="View Analytics" arrow>
-          <IconButton color="info" onClick={() => navigatePage(2)}>
+          <IconButton
+            color="info"
+            onClick={() => {
+              navigatePage(2), console.log(uuid);
+            }}
+          >
             <VisibilityOutlinedIcon />
           </IconButton>
         </Tooltip>

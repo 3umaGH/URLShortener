@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Paper, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import { logoSource } from "./NavigationBar/NavigationMenu";
 
 import InstagramIcon from "@mui/icons-material/Instagram";
