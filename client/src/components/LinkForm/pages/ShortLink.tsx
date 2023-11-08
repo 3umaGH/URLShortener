@@ -98,7 +98,7 @@ export const ShortLink = () => {
       </Grid>
       <Grid item xs={12} md={3.5} sx={{ textAlign: "left" }}>
         <Button variant="contained" sx={{ width: "100%", p: 1.5, px: 4 }}>
-          Sign up and get your link
+          Short.ly your link
         </Button>
       </Grid>
       <Grid item xs={12} sx={{ textAlign: "center" }}>
