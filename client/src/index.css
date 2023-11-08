@@ -78,10 +78,24 @@ body {
   border-left: 5px solid #6ca1d2;
   border-right: 5px solid #3a6c86;
   border-bottom: 5px solid #1c3945;
-  
+
   box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.15),
     inset 0px 1px 1px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 
   color: #3a3a3a;
+}
+
+.promo-section {
+  height:50vh;
+
+  background: rgb(21, 29, 77);
+  background: linear-gradient(
+    90deg,
+    rgba(21, 29, 77, 1) 5%,
+    rgba(7, 22, 61, 1) 52%,
+    rgba(26, 36, 46, 1) 100%
+  );
+
+  color:white;
 }
