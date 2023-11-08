@@ -121,7 +121,7 @@ export const PageStats = () => {
             }}
           />
         </Tooltip>
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{ mt: 1 }}>
           <Table sx={{ minWidth: "100%" }} aria-label="refferals">
             <TableHead>
               <TableRow>
