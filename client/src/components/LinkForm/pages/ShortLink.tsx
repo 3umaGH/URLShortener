@@ -14,8 +14,6 @@ import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 
-import { Tip } from "../../Tip";
-
 export const ShortLink = () => {
   return (
     <>
