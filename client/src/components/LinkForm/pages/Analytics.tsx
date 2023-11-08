@@ -3,7 +3,7 @@ import { Button, Grid, TextField, InputLabel, Typography } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import { Tip } from "../../Tip";
-import { AnalyticsGrid } from "../../AnalyticsGrid";
+import { AnalyticsGrid } from "../../AnalyticsLinkGrid";
 
 export const Analytics = ({
   navigatePage,
@@ -19,7 +19,7 @@ export const Analytics = ({
       </Grid>
 
       <Grid item xs={12} sx={{ textAlign: "center" }}>
-        <AnalyticsGrid />
+        <AnalyticsGrid navigatePage={navigatePage}/>
       </Grid>
 
       <Grid item xs={12} sx={{ textAlign: "left" }}>
