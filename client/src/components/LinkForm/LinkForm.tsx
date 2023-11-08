@@ -12,10 +12,19 @@ import { Analytics } from "./pages/Analytics";
 export const LinkForm = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const pages = [
-    // <PageElement> key=id
-    <ShortLink key={0} />,
-    <Analytics key={1} />,
+  const formPages = [
+    {
+      id: 0,
+      title: "Short Link",
+      icon: <InsertLinkOutlinedIcon />,
+      pageElement: <ShortLink />,
+    },
+    {
+      id: 1,
+      title: "Analytics",
+      icon: <BarChartOutlinedIcon />,
+      pageElement: <Analytics />,
+    },
   ];
 
   const handlePageSwitch = (pageID: number) => {
@@ -33,33 +42,22 @@ export const LinkForm = () => {
       >
         <Container>
           <ul className="formTabs">
-            <FormTabButton
-              pageID={0}
-              currentPage={currentPage}
-              pageSwitchCallback={handlePageSwitch}
-            >
-              <InsertLinkOutlinedIcon
-                className="icon centerTop"
-                sx={{ mr: { xs: 0, md: 1 } }}
-              />
-              <Typography variant="caption" fontSize={18}>
-                Short link
-              </Typography>
-            </FormTabButton>
-
-            <FormTabButton
-              pageID={1}
-              currentPage={currentPage}
-              pageSwitchCallback={handlePageSwitch}
-            >
-              <BarChartOutlinedIcon
-                className="icon centerTop"
-                sx={{ mr: { xs: 0, md: 1 } }}
-              />
-              <Typography variant="caption" fontSize={18}>
-                Analytics
-              </Typography>
-            </FormTabButton>
+            {formPages.map((page) => {
+              return (
+                <FormTabButton
+                  pageID={page.id}
+                  currentPage={currentPage}
+                  pageSwitchCallback={handlePageSwitch}
+                >
+                  <Box className="icon centerTop" sx={{ mr: { xs: 0, md: 1 } }}>
+                    {page.icon}
+                  </Box>
+                  <Typography variant="caption" fontSize={18}>
+                    {page.title}
+                  </Typography>
+                </FormTabButton>
+              );
+            })}
           </ul>
           <Paper
             elevation={3}
@@ -77,7 +75,7 @@ export const LinkForm = () => {
           >
             <Container sx={{ p: 4 }}>
               <Grid container spacing={2}>
-                {pages[currentPage]}
+                {formPages[currentPage].pageElement}
               </Grid>
             </Container>
           </Paper>
