@@ -18,12 +18,12 @@ export const PageStats = () => {
         </Typography>
       </Grid>
 
-      <Grid item xs={12}>
+      <Grid item xs={12} sx={{ my: 2 }}>
         <Typography variant="h6">Total Link Clicks:</Typography>
         <Typography
           className="analytics-total-link-clicks-label"
           variant="h5"
-          sx={{ display: "inline-block", p: 1 }}
+          sx={{ display: "inline-block", p: 1, mt:1 }}
         >
           {linkClicks}
         </Typography>
@@ -35,8 +35,12 @@ export const PageStats = () => {
           <Table sx={{ minWidth: "100%" }} aria-label="refferals">
             <TableHead>
               <TableRow>
-                <TableCell align="left">Refferal</TableCell>
-                <TableCell align="center">Clicks</TableCell>
+                <TableCell sx={{ width: "75%" }} align="left">
+                  Refferal
+                </TableCell>
+                <TableCell sx={{ width: "15%" }} align="center">
+                  Clicks
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -89,8 +93,12 @@ export const PageStats = () => {
           <Table sx={{ minWidth: "100%" }} aria-label="refferals">
             <TableHead>
               <TableRow>
-                <TableCell align="left">Contry</TableCell>
-                <TableCell align="center">Clicks</TableCell>
+                <TableCell sx={{ width: "75%" }} align="left">
+                  Contry
+                </TableCell>
+                <TableCell sx={{ width: "15%" }} align="center">
+                  Clicks
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
