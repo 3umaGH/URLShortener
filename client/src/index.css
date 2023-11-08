@@ -72,6 +72,16 @@ body {
   top: 5px;
 }
 
+.icon.centerTop.hover {
+  transition: transform 800ms;
+}
+
+.icon.centerTop.hover:hover {
+  transform: scale(1.3);
+
+  transition: 100ms;
+}
+
 .analytics-total-link-clicks-label {
   background-color: #f5fafd;
   border: 5px solid #c8e2f9;
@@ -87,7 +97,7 @@ body {
 }
 
 .promo-section {
-  height:50vh;
+  height:500px;
 
   background: rgb(21, 29, 77);
   background: linear-gradient(
