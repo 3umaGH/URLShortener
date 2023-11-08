@@ -5,8 +5,9 @@ import Container from "@mui/material/Container";
 import { Box, Button } from "@mui/material";
 import { NavigationButton } from "./NavigationButton";
 
+export const logoSource = "https://placeholderlogo.com/img/placeholder-logo-4.png";
+
 export const NavigationMenu = () => {
-  const logoSrc = "https://placeholderlogo.com/img/placeholder-logo-4.png";
   const paths = [
     { title: "Products", link: "/" },
     { title: "Analytics", link: "/" },
@@ -28,7 +29,7 @@ export const NavigationMenu = () => {
         }}
       >
         <Box sx={{ display: { xs: "block", md: "none" } }}>
-          <img src={logoSrc} alt="Logo"></img>
+          <img src={logoSource} alt="Logo"></img>
         </Box>
 
         <Toolbar
@@ -38,7 +39,7 @@ export const NavigationMenu = () => {
           }}
         >
           <Box sx={{ display: { xs: "none", md: "block" } }}>
-            <img src={logoSrc} alt="Logo"></img>
+            <img src={logoSource} alt="Logo"></img>
           </Box>
 
           <Box
