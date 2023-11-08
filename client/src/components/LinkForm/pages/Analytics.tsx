@@ -1,8 +1,7 @@
-import { Button, Grid, TextField, InputLabel, Typography } from "@mui/material";
+import { Button, Grid, TextField, InputLabel, Typography, Tooltip } from "@mui/material";
 
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
-import { Tip } from "../../Tip";
 import { AnalyticsGrid } from "../../AnalyticsLinkGrid";
 
 export const Analytics = ({
@@ -19,13 +18,17 @@ export const Analytics = ({
       </Grid>
 
       <Grid item xs={12} sx={{ textAlign: "center" }}>
-        <AnalyticsGrid navigatePage={navigatePage}/>
+        <AnalyticsGrid navigatePage={navigatePage} />
       </Grid>
 
       <Grid item xs={12} sx={{ textAlign: "left" }}>
         <InputLabel htmlFor={"secret-key-field"} sx={{ mb: -1 }}>
           <b>Paste secret key</b>{" "}
-          <Tip text="If someone has provided you with their private link key, you can import it here to access link analytics.">
+          <Tooltip
+            arrow
+            enterTouchDelay={0}
+            title="If someone has provided you with their private link key, you can import it here to access link analytics."
+          >
             <InfoOutlinedIcon
               className="icon centerTop"
               fontSize="small"
@@ -33,7 +36,7 @@ export const Analytics = ({
                 color: "gray",
               }}
             />
-          </Tip>
+          </Tooltip>
         </InputLabel>
       </Grid>
 

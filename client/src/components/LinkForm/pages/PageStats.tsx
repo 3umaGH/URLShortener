@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography, Tooltip } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -6,6 +6,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 export const PageStats = () => {
   const linkClicks = 16;
@@ -22,16 +24,31 @@ export const PageStats = () => {
         <Typography variant="h6">Total Link Clicks:</Typography>
         <Typography
           className="analytics-total-link-clicks-label"
-          variant="h5"
-          sx={{ display: "inline-block", p: 1, mt:1 }}
+          variant="h3"
+          sx={{ display: "inline-block", py: 2, px: 2.5, mt: 1 }}
         >
           {linkClicks}
         </Typography>
       </Grid>
 
       <Grid item xs={12} md={6}>
-        <Typography variant="h6">Top refferals</Typography>
-        <TableContainer component={Paper}>
+        <Typography variant="h6" style={{ display: "inline-block" }}>
+          Top Refferals
+        </Typography>
+        <Tooltip
+          arrow
+          enterTouchDelay={0}
+          title="Insight into Sources: Discover where clicks originate, guiding marketing strategies towards effective channels."
+        >
+          <InfoOutlinedIcon
+            fontSize="small"
+            sx={{
+              color: "gray",
+              ml: 0.5,
+            }}
+          />
+        </Tooltip>
+        <TableContainer component={Paper} sx={{ mt: 1 }}>
           <Table sx={{ minWidth: "100%" }} aria-label="refferals">
             <TableHead>
               <TableRow>
@@ -88,7 +105,22 @@ export const PageStats = () => {
       </Grid>
 
       <Grid item xs={12} md={6}>
-        <Typography variant="h6">Top countries</Typography>
+        <Typography variant="h6" style={{ display: "inline-block" }}>
+          Top Countries
+        </Typography>
+        <Tooltip
+          arrow
+          enterTouchDelay={0}
+          title="Geographic Reach: Understand user locations for tailored content and targeted campaigns."
+        >
+          <InfoOutlinedIcon
+            fontSize="small"
+            sx={{
+              color: "gray",
+              ml: 0.5,
+            }}
+          />
+        </Tooltip>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: "100%" }} aria-label="refferals">
             <TableHead>
@@ -135,6 +167,12 @@ export const PageStats = () => {
             </TableBody>
           </Table>
         </TableContainer>
+      </Grid>
+
+      <Grid item xs={12}>
+        <Button variant="contained" color="error" sx={{ mt: 1 }}>
+          Delete Link
+        </Button>
       </Grid>
     </>
   );

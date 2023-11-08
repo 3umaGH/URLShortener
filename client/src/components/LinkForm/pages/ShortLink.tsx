@@ -6,6 +6,7 @@ import {
   InputLabel,
   TextField,
   Typography,
+  Tooltip,
 } from "@mui/material";
 
 import LockIcon from "@mui/icons-material/Lock";
@@ -25,7 +26,7 @@ export const ShortLink = () => {
       </Grid>
 
       <Grid item xs={12} sx={{ textAlign: "left" }}>
-        <InputLabel htmlFor={"long-link-field"} sx={{mb:1}}>
+        <InputLabel htmlFor={"long-link-field"} sx={{ mb: 1 }}>
           <b>Paste a long URL</b>
         </InputLabel>
         <TextField
@@ -36,7 +37,7 @@ export const ShortLink = () => {
         />
       </Grid>
       <Grid item xs={11} md={4} sx={{ textAlign: "left" }}>
-        <InputLabel htmlFor={"domain-link-field"} sx={{mb:1}}>
+        <InputLabel htmlFor={"domain-link-field"} sx={{ mb: 1 }}>
           <b>Domain</b>
         </InputLabel>
         <TextField
@@ -59,9 +60,13 @@ export const ShortLink = () => {
         <Typography variant="h5">/</Typography>
       </Grid>
       <Grid item xs={11.5} md={7.5} sx={{ textAlign: "left" }}>
-        <InputLabel htmlFor={"back-half-field"} sx={{mb:0.5}}>
+        <InputLabel htmlFor={"back-half-field"} sx={{ mb: 0.5 }}>
           <b>Enter a back-half</b> (optional){" "}
-          <Tip text="Add your own words at the end of a link (e.g., “short.ly/twitter_bits” instead of “short.ly/2ZonlUz”)">
+          <Tooltip
+            arrow
+            enterTouchDelay={0}
+            title="Add your own words at the end of a link (e.g., “short.ly/twitter_bits” instead of “short.ly/2ZonlUz”)"
+          >
             <InfoOutlinedIcon
               className="icon centerTop"
               fontSize="small"
@@ -69,7 +74,7 @@ export const ShortLink = () => {
                 color: "gray",
               }}
             />
-          </Tip>
+          </Tooltip>
         </InputLabel>
         <TextField
           fullWidth

@@ -41,13 +41,18 @@ export const Tip = ({
             width: `${width}px`,
 
             top: mousePosition.y + 15,
-            left: Math.min(mousePosition.x + 15, window.innerWidth - width - 15),
+            left: Math.min(
+              mousePosition.x + 15,
+              window.innerWidth - width - 15
+            ),
 
             backgroundColor: "black",
             color: "white",
           }}
         >
-          <Typography variant="caption" fontSize={14}>{text}</Typography>
+          <Typography variant="caption" fontSize={14}>
+            {text}
+          </Typography>
         </Box>
       )}
       <Box
