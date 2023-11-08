@@ -40,7 +40,7 @@ export const LinkForm = () => {
             >
               <InsertLinkOutlinedIcon
                 className="icon centerTop"
-                sx={{ mr: 1 }}
+                sx={{ mr: { xs: 0, md: 1 } }}
               />
               <Typography variant="caption" fontSize={18}>
                 Short link
@@ -52,7 +52,10 @@ export const LinkForm = () => {
               currentPage={currentPage}
               pageSwitchCallback={handlePageSwitch}
             >
-              <BarChartOutlinedIcon className="icon centerTop" sx={{ mr: 1 }} />
+              <BarChartOutlinedIcon
+                className="icon centerTop"
+                sx={{ mr: { xs: 0, md: 1 } }}
+              />
               <Typography variant="caption" fontSize={18}>
                 Analytics
               </Typography>

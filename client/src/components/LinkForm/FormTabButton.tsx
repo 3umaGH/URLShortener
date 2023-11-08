@@ -19,7 +19,7 @@ export const FormTabButton = ({
         className={
           currentPage === pageID ? "formTabs button active" : "formTabs button"
         }
-        sx={{ flexDirection: { xs: "column", md: "row" }, alignItems: {xs: "center", md:"baseline"} }}
+        sx={{ flexDirection: { xs: "column", md: "row" }, alignItems: {xs: "center", md:"baseline"}}}
       >
         {children}
       </Box>
