@@ -8,10 +8,19 @@ export const PromoSection = () => {
       sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
     >
       <Box>
-        <Typography variant="h3" sx={{ padding: 2 }}>
+        <Typography
+          variant="h3"
+          sx={{ padding: 2, fontSize: { xs: 36, md: 48 } }}
+        >
           <b>More than a free link shortener</b>
         </Typography>
-        <Button variant="contained" size="large" sx={{py:3, px:6, fontSize:25, mt:5}}>Get Started</Button>
+        <Button
+          variant="contained"
+          size="large"
+          sx={{ py:{xs: 2, md:4}, px:{xs: 3, md:6}, fontSize: { xs: 16, sm: 20, md: 26 }, mt: 5 }}
+        >
+          Get Started
+        </Button>
       </Box>
     </Container>
   );
