@@ -12,6 +12,10 @@ import { Analytics } from "./pages/Analytics";
 export const LinkForm = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
+  const navigatePage = (pageID: number) => {
+    setCurrentPage(pageID);
+  };
+
   type VisiblePageProps = {
     visible: true;
     id: number;
@@ -41,18 +45,14 @@ export const LinkForm = () => {
       title: "Analytics",
       visible: true,
       icon: <BarChartOutlinedIcon />,
-      pageElement: <Analytics />,
+      pageElement: <Analytics navigatePage={navigatePage}/>,
     },
-    {
+    /*{
       id: 2,
       visible: false,
       pageElement: <Analytics />,
-    },
+    },*/
   ];
-
-  const navigatePage = (pageID: number) => {
-    setCurrentPage(pageID);
-  };
 
   return (
     <Box sx={{ textAlign: "center" }}>
