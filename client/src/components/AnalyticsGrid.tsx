@@ -32,17 +32,20 @@ const columns: GridColDef[] = [
     field: "shortLink",
     headerName: "Short link",
     flex: 0.5,
+    minWidth: 150,
   },
   {
     field: "longLink",
     headerName: "Long link",
     flex: 1.2,
+    minWidth: 20,
   },
   {
     field: "actions",
     headerName: "Actions",
-    flex: 0.4,
     type: "actions",
+    flex: 0.4,
+    minWidth: 150,
     renderCell: (params) => <ActionsComponent uuid={params.row.uuid} />,
   },
 ];
@@ -56,6 +59,8 @@ export const AnalyticsGrid = () => {
       longLink:
         "https://stackoverflow.com/questions/69222920/module-not-found-cant-resolve-mui-x-data-grid-in-c-users-syndicate-docume",
     },
+
+    
   ]);
 
   return (
@@ -72,6 +77,7 @@ export const AnalyticsGrid = () => {
       }}
       pageSizeOptions={[5]}
       disableRowSelectionOnClick
+      
     />
   );
 };
