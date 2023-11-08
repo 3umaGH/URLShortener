@@ -8,9 +8,10 @@ import { FormTabButton } from "./FormTabButton";
 import { useState } from "react";
 import { ShortLink } from "./pages/ShortLink";
 import { Analytics } from "./pages/Analytics";
+import { PageStats } from "./pages/PageStats";
 
 export const LinkForm = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(2);
 
   const navigatePage = (pageID: number) => {
     setCurrentPage(pageID);
@@ -45,13 +46,13 @@ export const LinkForm = () => {
       title: "Analytics",
       visible: true,
       icon: <BarChartOutlinedIcon />,
-      pageElement: <Analytics navigatePage={navigatePage}/>,
+      pageElement: <Analytics navigatePage={navigatePage} />,
     },
-    /*{
+    {
       id: 2,
       visible: false,
-      pageElement: <Analytics />,
-    },*/
+      pageElement: <PageStats />,
+    },
   ];
 
   return (
