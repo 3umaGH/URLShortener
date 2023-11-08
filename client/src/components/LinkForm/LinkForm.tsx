@@ -11,7 +11,7 @@ import { Analytics } from "./pages/Analytics";
 import { PageStats } from "./pages/PageStats";
 
 export const LinkForm = () => {
-  const [currentPage, setCurrentPage] = useState(2);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const navigatePage = (pageID: number) => {
     setCurrentPage(pageID);
