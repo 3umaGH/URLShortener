@@ -1,11 +1,7 @@
 import {
   Button,
-  Divider,
   Grid,
   InputLabel,
-  List,
-  ListItemButton,
-  ListItemText,
   TextField,
   Typography,
 } from "@mui/material";
@@ -13,6 +9,7 @@ import {
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import { Tip } from "../../Tip";
+import { AnalyticsGrid } from "../../AnalyticsGrid";
 
 export const Analytics = () => {
   return (
@@ -24,7 +21,8 @@ export const Analytics = () => {
       </Grid>
 
       <Grid item xs={12} sx={{ textAlign: "center" }}>
-        <List
+      <AnalyticsGrid />
+        {/*<List
           sx={{
             width: "100%",
             bgcolor: "background.paper",
@@ -47,7 +45,7 @@ export const Analytics = () => {
               </ListItemButton>
             );
           })}
-        </List>
+        </List>*/}
       </Grid>
 
       <Grid item xs={12} sx={{ textAlign: "left" }}>
@@ -64,13 +62,20 @@ export const Analytics = () => {
           </Tip>
         </InputLabel>
         <Grid item xs={12} sx={{ textAlign: "left" }}>
+
           <TextField
             id="secret-key-field"
             placeholder="Example: 550e8400-e29b-41d4-a716-446655440000"
             variant="outlined"
             sx={{width:"80%"}}
-          />
-          <Button variant="contained" sx={{width:"19%", p:1.95, ml:1}} color="secondary">Add Link</Button>
+            />
+          <Button
+            variant="contained"
+            sx={{ width: "19%", p: 1.95, ml: 1 }}
+            color="secondary"
+          >
+            Add Link
+          </Button>
         </Grid>
       </Grid>
     </>
