@@ -10,7 +10,7 @@ const ShortURLSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  shortURL: {
+  URLSuffix: {
     type: String,
     required: true,
     unique: true,

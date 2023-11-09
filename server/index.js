@@ -1,8 +1,16 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const mongoose = require("mongoose");
 
 require("dotenv").config();
+
+app.use(
+  cors({
+    origin: "*",
+    optionsSuccessStatus: 200,
+  })
+);
 
 // DB
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`;
@@ -11,7 +19,7 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${proce
 
 // Connect to MongoDB
 const connect = () => {
-  mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  mongoose.connect(uri);
 };
 
 // Listen for the connection event
@@ -35,9 +43,7 @@ mongoose.connection.on("disconnected", () => {
 
 connect();
 
-app.use("/action", require("./routes/Action"));
+app.use("/action",express.json(), require("./routes/Action"));
 app.use("/", require("./routes/ShortenedURL"));
-
-
 
 app.listen(process.env.LISTEN_PORT);
