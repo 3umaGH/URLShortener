@@ -18,8 +18,9 @@ export const AlertTimeout = ({
   const [isVisible, setVisible] = useState(true);
 
   useEffect(() => {
+    setVisible(true);
     setTimeout(() => setVisible(false), timeout);
-  });
+  }, [children, timeout]);
 
   return (
     <Collapse in={isVisible}>
