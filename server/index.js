@@ -1,12 +1,11 @@
 const express = require("express");
 const app = express();
-require('dotenv').config();
+require("dotenv").config();
 
 
-app.get("*", (req, res) => {
-    return res.status(404).json({ message: "Page not found." });
-  });
-  
+app.use("/action", require("./routes/Action"));
+app.use("/", require("./routes/ShortenedURL"));
+
+
+
 app.listen(process.env.LISTEN_PORT);
-
-console.log(process.env.LISTEN_PORT);
