@@ -1,6 +1,6 @@
 export const LINKFORM_PAGES = {
   MAIN_PAGE: 0,
-  ANALYTICS: 1,
+  LINK_LIST: 1,
   LINK_CREATED: 2,
   LINK_DETAILS: 3,
 };

@@ -21,7 +21,7 @@ import { LINKFORM_PAGES } from "../../../constants";
 import { PayloadType } from "../LinkForm";
 import { saveURLToLocalStorage } from "../../../utils/storageUtils";
 
-export const ShortLink = ({
+export const ShortLinkCreateView = ({
   navigatePage,
   updatePayload,
 }: {

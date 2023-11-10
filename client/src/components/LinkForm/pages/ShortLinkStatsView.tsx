@@ -33,7 +33,7 @@ type URLDetailsType = {
   dateCreated: string;
 };
 
-export const PageStats = ({ payload = {} }: { payload?: PayloadType }) => {
+export const ShortLinkStatsView = ({ payload = {} }: { payload?: PayloadType }) => {
   const [pageStatistics, setPageStatistics] = useState<URLDetailsType>();
   const { uuid } = payload ?? {};
 

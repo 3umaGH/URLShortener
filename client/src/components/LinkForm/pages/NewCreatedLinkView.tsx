@@ -13,7 +13,7 @@ import { PayloadType } from "../LinkForm";
 import { useState } from "react";
 import { LINKFORM_PAGES } from "../../../constants";
 
-export const NewLink = ({
+export const NewCreatedLinkView = ({
   navigatePage,
   payload = {},
 }: {

@@ -10,7 +10,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { AnalyticsGrid } from "../../AnalyticsLinkGrid";
 import { PayloadType } from "../LinkForm";
 
-export const Analytics = ({
+export const ShortLinkListView = ({
   navigatePage,
   updatePayload,
 }: {

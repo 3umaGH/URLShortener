@@ -6,11 +6,12 @@ import {
 } from "@mui/icons-material";
 import { FormTabButton } from "./FormTabButton";
 import { useState } from "react";
-import { ShortLink } from "./pages/ShortLink";
-import { Analytics } from "./pages/Analytics";
-import { PageStats } from "./pages/PageStats";
 import { LINKFORM_PAGES } from "../../constants";
-import { NewLink } from "./pages/NewLink";
+
+import { ShortLinkCreateView } from "./pages/ShortLinkCreateView";
+import { ShortLinkListView } from "./pages/ShortLinkListView";
+import { ShortLinkStatsView } from "./pages/ShortLinkStatsView";
+import { NewCreatedLinkView } from "./pages/NewCreatedLinkView";
 
 type VisiblePageProps = {
   visible: true;
@@ -49,19 +50,19 @@ export const LinkForm = () => {
       visible: true,
       icon: <InsertLinkOutlinedIcon />,
       pageElement: (
-        <ShortLink
+        <ShortLinkCreateView
           navigatePage={navigatePage}
           updatePayload={handlePayloadChange}
         />
       ),
     },
     {
-      id: LINKFORM_PAGES.ANALYTICS,
+      id: LINKFORM_PAGES.LINK_LIST,
       title: "Analytics",
       visible: true,
       icon: <BarChartOutlinedIcon />,
       pageElement: (
-        <Analytics
+        <ShortLinkListView
           navigatePage={navigatePage}
           updatePayload={handlePayloadChange}
         />
@@ -70,12 +71,12 @@ export const LinkForm = () => {
     {
       id: LINKFORM_PAGES.LINK_CREATED,
       visible: false,
-      pageElement: <NewLink navigatePage={navigatePage} payload={payload} />,
+      pageElement: <NewCreatedLinkView navigatePage={navigatePage} payload={payload} />,
     },
     {
       id: LINKFORM_PAGES.LINK_DETAILS,
       visible: false,
-      pageElement: <PageStats payload={payload} />,
+      pageElement: <ShortLinkStatsView payload={payload} />,
     },
   ];
 
