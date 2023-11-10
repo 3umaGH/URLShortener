@@ -1,4 +1,4 @@
-module.exports.generateRandomString = function(length) {
+module.exports.generateRandomString = (length) => {
   let result = "";
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -9,13 +9,26 @@ module.exports.generateRandomString = function(length) {
   }
 
   return result;
-}
+};
 
-module.exports.isValidURL = function(string) {
+module.exports.isValidURL = (string) => {
   try {
     new URL(string);
     return true;
   } catch (err) {
     return false;
   }
-}
+};
+
+module.exports.getGeoInfo = async (clientIP) => {
+  
+    try {
+      const response = await fetch(`http://ip-api.com/json/${clientIP}`);
+      const json = await response.json();
+      return json.status === "success" ? json.country : "Unknown country";
+    } catch (error) {
+      console.error('Error fetching IP information:', error);
+      return "Unknown country";
+    }
+  
+};
