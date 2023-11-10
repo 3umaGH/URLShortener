@@ -6,39 +6,42 @@ const uuid = require("uuid");
 const { generateRandomString, isValidURL } = require("../util/utils");
 
 const MAX_RETRIES = 3;
-const SUFFIX_LENGTH = 8;
 
 router.post("/", async (req, res) => {
   if (!req.body.originalURL || !isValidURL(req.body.originalURL))
     // Check if original url prop exists and is valid URL
-    return res
-      .status(400)
-      .json({
-        message: "Bad Request. OriginalURL does not exist or is not an URL.",
-      });
+    return res.status(400).json({
+      message: "Invalid URL, Make sure your URL starts with http:// or https://",
+    });
 
-  if (req.body.originalURL.length < 6 || req.body.originalURL.length > 100)
+  if (
+    req.body.originalURL.length < process.env.MIN_ORIGINAL_URL_LENGTH ||
+    req.body.originalURL.length > process.env.MAX_ORIGINAL_URL_LENGTH
+  ) {
     // Check if Original url is at least 6 and no more than 100 characters.
-    return res
-      .status(400)
-      .json({
-        message:
-          "Bad Request. Original URL is shorter than 6 or longer than 100 characters.",
-      });
+    return res.status(400).json({
+      message: `URL is shorter than ${process.env.MIN_ORIGINAL_URL_LENGTH} or longer than ${process.env.MAX_ORIGINAL_URL_LENGTH} characters.`,
+    });
+  }
 
-  const isCustomSuffix = req.body.shortURLPath ? true : false;
-  let linkSuffix = isCustomSuffix
+  if (req.body.shortURLPath.length > process.env.MAX_CUSTOM_SUFFIX_LENGTH)
+    return res.status(400).json({
+      message: `URL back-half is longer than ${process.env.MAX_ORIGINAL_URL_LENGTH} characters.`,
+    });
+
+  const isCustomSuffixRequested = req.body.shortURLPath ? true : false;
+  let linkSuffix = isCustomSuffixRequested
     ? req.body.shortURLPath
-    : generateRandomString(SUFFIX_LENGTH);
+    : generateRandomString(process.env.GENERATED_SUFFIX_LENGTH);
   let retries = 0;
 
   const url = await ShortURL.findOne({ URLSuffix: linkSuffix }).exec();
 
-  if (url && isCustomSuffix) {
+  if (url && isCustomSuffixRequested) {
     // If duplicate url suffix exists and is requested by user, throw an error.
-    return res
-      .status(500)
-      .json({ message: `https://short.ly/${linkSuffix} is already taken.` });
+    return res.status(500).json({
+      message: `${process.env.DOMAIN}${linkSuffix} is already taken.`,
+    });
   }
 
   while (retries < MAX_RETRIES) {
@@ -49,16 +52,17 @@ router.post("/", async (req, res) => {
         linkSuffix
       );
 
-      return res
-        .status(200)
-        .json({ message: "OK", shortlink: `https://short.ly/${generatedURL}` });
+      return res.status(200).json({
+        message: "OK",
+        shortlink: `${process.env.DOMAIN}${generatedURL}`,
+      });
     } catch (error) {
       if (error.code === 11000) {
         console.log(
           `Duplicate key error on attempt ${retries + 1}, retrying...`
         );
 
-        linkSuffix = generateRandomString(SUFFIX_LENGTH);
+        linkSuffix = generateRandomString(SUFFIX_LENGTH); // Generate new URL suffix, because apparently it already exists.
         retries++;
       } else {
         console.log("Internal Server Error:", error);
