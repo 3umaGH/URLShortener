@@ -1,10 +1,11 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { logoSource } from "./NavigationBar/NavigationMenu";
-
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import {
+  Instagram as InstagramIcon,
+  Facebook as FacebookIcon,
+  Twitter as TwitterIcon,
+  LinkedIn as LinkedInIcon,
+} from "@mui/icons-material";
 
 export const Footer = () => {
   return (

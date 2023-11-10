@@ -97,7 +97,7 @@ body {
 }
 
 .promo-section {
-  height:500px;
+  height: 500px;
 
   background: rgb(21, 29, 77);
   background: linear-gradient(
@@ -107,7 +107,7 @@ body {
     rgba(26, 36, 46, 1) 100%
   );
 
-  color:white;
+  color: white;
 }
 
 .urlLink {

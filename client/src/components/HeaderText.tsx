@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-
 import Fade from "@mui/material/Fade";
 
 export const HeaderText = () => {
@@ -24,7 +23,8 @@ export const HeaderText = () => {
           sx={{ color: "#565657" }}
           lineHeight={1.4}
         >
-          Shorten your links for free with <b>{import.meta.env.VITE_APP_NAME}</b>
+          Shorten your links for free with{" "}
+          <b>{import.meta.env.VITE_APP_NAME}</b>
           <br />
           Track what's thriving, and what's not, effortlessly.
         </Typography>

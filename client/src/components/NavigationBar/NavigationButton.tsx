@@ -11,7 +11,7 @@ export const NavigationButton = ({ title, path }: NavigationButtonProps) => {
       className="navbar button"
       onClick={() => alert(path)}
       sx={{
-        px:"5vw",
+        px: "5vw",
         cursor: "pointer",
         whiteSpace: "nowrap",
       }}

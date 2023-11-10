@@ -1,9 +1,10 @@
 import { Container, IconButton, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
-
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import {
+  DeleteOutlineOutlined as DeleteOutlineOutlinedIcon,
+  VisibilityOutlined as VisibilityOutlinedIcon,
+} from "@mui/icons-material";
 import { LINKFORM_PAGES } from "../constants";
 import { getSavedURLs } from "../utils/storageUtils";
 import { PayloadType } from "./LinkForm/LinkForm";
@@ -52,7 +53,7 @@ export const AnalyticsGrid = ({
             color="info"
             onClick={() => {
               updatePayload({
-                uuid: uuid
+                uuid: uuid,
               });
 
               navigatePage(LINKFORM_PAGES.LINK_DETAILS);

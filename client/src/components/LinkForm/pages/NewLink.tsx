@@ -8,11 +8,9 @@ import {
   Tooltip,
   Divider,
 } from "@mui/material";
-
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-
 import { PayloadType } from "../LinkForm";
-import { useState, useEffect} from "react";
+import { useState } from "react";
 import { LINKFORM_PAGES } from "../../../constants";
 
 export const NewLink = ({
@@ -22,13 +20,8 @@ export const NewLink = ({
   navigatePage: (pageID: number) => void;
   payload?: PayloadType;
 }) => {
-  const {originalURL, URLSuffix, uuid } = payload ?? {};
+  const { URLSuffix, uuid } = payload ?? {};
   const [isSecretVisible, setSecretVisible] = useState(false);
-
-  useEffect(() => { // Write to local storage new URL.
-    
-
-  })
 
   return (
     <>
@@ -39,7 +32,8 @@ export const NewLink = ({
           </b>
         </Typography>
         <a className="urlLink" href="#">
-          https://short.ly/{(URLSuffix as string) ?? "N/A"}
+          {import.meta.env.VITE_APP_API}
+          {(URLSuffix as string) ?? "N/A"}
         </a>
       </Grid>
 

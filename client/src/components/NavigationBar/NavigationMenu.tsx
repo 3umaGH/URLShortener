@@ -1,11 +1,11 @@
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
-
 import { Box, Button } from "@mui/material";
 import { NavigationButton } from "./NavigationButton";
 
-export const logoSource = "https://placeholderlogo.com/img/placeholder-logo-4.png";
+export const logoSource =
+  "https://placeholderlogo.com/img/placeholder-logo-4.png";
 
 export const NavigationMenu = () => {
   const paths = [

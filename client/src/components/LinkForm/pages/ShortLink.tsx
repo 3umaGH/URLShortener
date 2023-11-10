@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import {
   Box,
   Button,
@@ -10,19 +9,17 @@ import {
   Typography,
   Tooltip,
 } from "@mui/material";
-
-import LockIcon from "@mui/icons-material/Lock";
-import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
-
+import {
+  Lock as LockIcon,
+  AutoAwesome as AutoAwesomeIcon,
+  InfoOutlined as InfoOutlinedIcon,
+  CheckCircleOutlined as CheckCircleOutlinedIcon,
+} from "@mui/icons-material";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { AlertTimeout } from "../../AlertTimeout";
 import { LINKFORM_PAGES } from "../../../constants";
 import { PayloadType } from "../LinkForm";
-import {
-  saveURLToLocalStorage,
-} from "../../../utils/storageUtils";
+import { saveURLToLocalStorage } from "../../../utils/storageUtils";
 
 export const ShortLink = ({
   navigatePage,
@@ -141,7 +138,11 @@ export const ShortLink = ({
             <Tooltip
               arrow
               enterTouchDelay={0}
-              title={`Add your own words at the end of a link (e.g., “${import.meta.env.VITE_APP_API}/twitter_bits” instead of “${import.meta.env.VITE_APP_API}/2ZonlUz”)`}
+              title={`Add your own words at the end of a link (e.g., “${
+                import.meta.env.VITE_APP_API
+              }/twitter_bits” instead of “${
+                import.meta.env.VITE_APP_API
+              }/2ZonlUz”)`}
             >
               <InfoOutlinedIcon
                 className="icon centerTop"

@@ -19,11 +19,10 @@ export const AlertTimeout = ({
 
   useEffect(() => {
     setVisible(true);
-    setTimeout(() => setVisible(false), timeout);
   }, [children, timeout]);
 
   return (
-    <Collapse in={isVisible}>
+    <Collapse in={isVisible} timeout={1000}>
       <Alert severity={severity} sx={sx}>
         {children}
       </Alert>

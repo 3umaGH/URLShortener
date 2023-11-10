@@ -17,7 +17,12 @@ export const PromoSection = () => {
         <Button
           variant="contained"
           size="large"
-          sx={{ py:{xs: 2, md:4}, px:{xs: 3, md:6}, fontSize: { xs: 16, sm: 20, md: 26 }, mt: 5 }}
+          sx={{
+            py: { xs: 2, md: 4 },
+            px: { xs: 3, md: 6 },
+            fontSize: { xs: 16, sm: 20, md: 26 },
+            mt: 5,
+          }}
         >
           Get Started
         </Button>

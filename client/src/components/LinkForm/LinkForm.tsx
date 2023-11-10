@@ -1,9 +1,9 @@
 import { Box, Container, Grid, Paper, Typography } from "@mui/material";
-
 import Slide from "@mui/material/Slide";
-
-import InsertLinkOutlinedIcon from "@mui/icons-material/InsertLinkOutlined";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
+import {
+  InsertLinkOutlined as InsertLinkOutlinedIcon,
+  BarChartOutlined as BarChartOutlinedIcon,
+} from "@mui/icons-material";
 import { FormTabButton } from "./FormTabButton";
 import { useState } from "react";
 import { ShortLink } from "./pages/ShortLink";

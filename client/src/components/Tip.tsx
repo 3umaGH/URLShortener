@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Tip = ({
   children,
@@ -11,7 +11,7 @@ export const Tip = ({
   width?: number;
 }) => {
   const [onHover, setOnHover] = useState(false);
-  const [mousePosition, setMousePosition] = React.useState({
+  const [mousePosition, setMousePosition] = useState({
     x: 0,
     y: 0,
   });

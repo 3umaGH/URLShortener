@@ -6,9 +6,7 @@ import {
   Typography,
   Tooltip,
 } from "@mui/material";
-
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-
 import { AnalyticsGrid } from "../../AnalyticsLinkGrid";
 import { PayloadType } from "../LinkForm";
 
@@ -28,7 +26,10 @@ export const Analytics = ({
       </Grid>
 
       <Grid item xs={12} sx={{ textAlign: "center" }}>
-        <AnalyticsGrid navigatePage={navigatePage} updatePayload={updatePayload} />
+        <AnalyticsGrid
+          navigatePage={navigatePage}
+          updatePayload={updatePayload}
+        />
       </Grid>
 
       <Grid item xs={12} sx={{ textAlign: "left" }}>
