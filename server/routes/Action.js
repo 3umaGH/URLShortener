@@ -50,14 +50,16 @@ router.post("/", async (req, res) => {
   while (retries < MAX_RETRIES) {
     // Try generating new properties id or generated if suffix already exist in DB.
     try {
-      const generatedURL = await insertNewLink(
+      const shortURLInstance = await insertNewLink(
         req.body.originalURL,
         linkSuffix
       );
 
       return res.status(200).json({
         message: "OK",
-        shortlink: `${process.env.DOMAIN}${generatedURL}`,
+        uuid: `${shortURLInstance.id}`,
+        originalURL: `${shortURLInstance.originalURL}`,
+        shortLink: `${shortURLInstance.URLSuffix}`,
       });
     } catch (error) {
       if (error.code === 11000) {
@@ -95,7 +97,7 @@ const insertNewLink = async (originalURL, URLSuffix) => {
   const savedShortURL = await shortURLInstance.save();
   console.log("New ShortURL with referral added successfully:", savedShortURL);
 
-  return URLSuffix;
+  return shortURLInstance;
 };
 
 router.get("/:uuid", async (req, res) => {
@@ -130,9 +132,7 @@ router.delete("/:uuid", async (req, res) => {
       message: "UUID not found.",
     });
   else
-    return res.status(200).json({
-      message: "OK",
-    });
+    return res.status(204);
 });
 
 module.exports = router;
