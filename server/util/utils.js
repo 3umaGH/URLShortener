@@ -21,7 +21,6 @@ module.exports.isValidURL = (string) => {
 };
 
 module.exports.getGeoInfo = async (clientIP) => {
-  
     try {
       const response = await fetch(`http://ip-api.com/json/${clientIP}`);
       const json = await response.json();
@@ -30,5 +29,9 @@ module.exports.getGeoInfo = async (clientIP) => {
       console.error('Error fetching IP information:', error);
       return "Unknown country";
     }
-  
 };
+
+module.exports.isValidCharacters = (string) =>{
+  const regex = /^[a-zA-Z0-9]+$/
+  return regex.test(string);
+}

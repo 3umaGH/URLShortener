@@ -5,12 +5,20 @@ const uuid = require("uuid");
 
 require("dotenv").config();
 
-const { generateRandomString, isValidURL } = require("../util/utils");
+const {
+  generateRandomString,
+  isValidURL,
+  isValidCharacters,
+} = require("../util/utils");
 
 const MAX_RETRIES = 3;
 
 router.post("/", async (req, res) => {
-  if (!req.body.originalURL || !isValidURL(req.body.originalURL))
+  if (
+    !req.body.originalURL ||
+    !isValidURL(req.body.originalURL) ||
+    !isValidCharacters(req.body.originalURL)
+  )
     // Check if original url prop exists and is valid URL
     return res.status(400).json({
       message:
@@ -27,9 +35,17 @@ router.post("/", async (req, res) => {
     });
   }
 
-  if (req.body.shortURLPath && req.body.shortURLPath.length > process.env.MAX_CUSTOM_SUFFIX_LENGTH)
+  if (
+    req.body.shortURLPath &&
+    req.body.shortURLPath.length > process.env.MAX_CUSTOM_SUFFIX_LENGTH
+  )
     return res.status(400).json({
       message: `URL back-half is longer than ${process.env.MAX_ORIGINAL_URL_LENGTH} characters.`,
+    });
+
+  if (!isValidCharacters(req.body.shortURLPath))
+    return res.status(400).json({
+      message: `Only A-Z characters and numbers allowed.`,
     });
 
   const isCustomSuffixRequested = req.body.shortURLPath ? true : false;
@@ -114,7 +130,7 @@ router.get("/:uuid", async (req, res) => {
     res.status(404).json({
       message: "UUID not found.",
     });
-  else return res.status(200).json( {message: "OK", shortLink});
+  else return res.status(200).json({ message: "OK", shortLink });
 });
 
 router.delete("/:uuid", async (req, res) => {
@@ -131,8 +147,7 @@ router.delete("/:uuid", async (req, res) => {
     return res.status(404).json({
       message: "UUID not found.",
     });
-  else
-    return res.status(204);
+  else return res.status(204);
 });
 
 module.exports = router;
