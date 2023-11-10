@@ -20,7 +20,7 @@ type ActionsProps = {
   uuid: string;
 };
 
-export const AnalyticsGrid = ({
+export const ShortLinkList = ({
   navigatePage,
   updatePayload,
 }: {

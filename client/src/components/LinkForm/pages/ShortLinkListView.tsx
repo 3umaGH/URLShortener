@@ -7,7 +7,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { AnalyticsGrid } from "../../AnalyticsLinkGrid";
+import { ShortLinkList } from "../../ShortLinkList";
 import { PayloadType } from "../LinkForm";
 
 export const ShortLinkListView = ({
@@ -26,7 +26,7 @@ export const ShortLinkListView = ({
       </Grid>
 
       <Grid item xs={12} sx={{ textAlign: "center" }}>
-        <AnalyticsGrid
+        <ShortLinkList
           navigatePage={navigatePage}
           updatePayload={updatePayload}
         />
