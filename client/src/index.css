@@ -109,3 +109,12 @@ body {
 
   color:white;
 }
+
+.urlLink {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #007bff;
+  text-decoration: underline;
+  word-wrap: break-word;
+  margin-bottom: 10px;
+}
