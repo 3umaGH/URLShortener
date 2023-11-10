@@ -38,7 +38,7 @@ export const ShortLinkList = ({
         return {
           id: url.id || 0,
           uuid: url.uuid,
-          shortLink: `${import.meta.env.VITE_APP_API}${url.URLSuffix}`,
+          shortLink: `${import.meta.env.VITE_APP_API}/${url.URLSuffix}`,
           originalURL: url.originalURL,
         };
       })
@@ -55,7 +55,6 @@ export const ShortLinkList = ({
               updatePayload({
                 uuid: uuid,
               });
-
               navigatePage(LINKFORM_PAGES.LINK_DETAILS);
             }}
           >
