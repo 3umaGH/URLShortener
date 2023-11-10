@@ -63,7 +63,6 @@ export const LinkForm = () => {
       pageElement: (
         <Analytics
           navigatePage={navigatePage}
-          payload={payload}
           updatePayload={handlePayloadChange}
         />
       ),
@@ -76,7 +75,7 @@ export const LinkForm = () => {
     {
       id: LINKFORM_PAGES.LINK_DETAILS,
       visible: false,
-      pageElement: <PageStats />,
+      pageElement: <PageStats payload={payload} />,
     },
   ];
 

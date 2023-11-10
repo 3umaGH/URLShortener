@@ -1,29 +1,48 @@
 import { Container, IconButton, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { LINKFORM_PAGES } from "../constants";
+import { getSavedURLs } from "../utils/storageUtils";
+import { PayloadType } from "./LinkForm/LinkForm";
+
+type TableRowProps = {
+  id: number;
+  uuid: string;
+  shortLink: string;
+  originalURL: string;
+};
+
+type ActionsProps = {
+  uuid: string;
+};
 
 export const AnalyticsGrid = ({
   navigatePage,
+  updatePayload,
 }: {
   navigatePage: (pageID: number) => void;
+  updatePayload: (newPayload: PayloadType) => void;
 }) => {
-  const [tableRows /*,setTableRows*/] = useState([
-    {
-      id: 0,
-      uuid: "asdfasdf",
-      shortLink: "https://short.ly/my-portfolio-page",
-      longLink:
-        "https://stackoverflow.com/questions/69222920/module-not-found-cant-resolve-mui-x-data-grid-in-c-users-syndicate-docume",
-    },
-  ]);
+  const [tableRows, setTableRows] = useState<TableRowProps[]>();
 
-  type ActionsProps = {
-    uuid: string;
-  };
+  useEffect(() => {
+    // Load data from local storage on first render
+    const savedData = getSavedURLs();
+
+    setTableRows(
+      savedData.map((url) => {
+        return {
+          id: url.id || 0,
+          uuid: url.uuid,
+          shortLink: `https://short.ly/${url.URLSuffix}`,
+          originalURL: url.originalURL,
+        };
+      })
+    );
+  }, []);
 
   const ActionsComponent = ({ uuid }: ActionsProps) => {
     return (
@@ -32,7 +51,11 @@ export const AnalyticsGrid = ({
           <IconButton
             color="info"
             onClick={() => {
-              navigatePage(LINKFORM_PAGES.LINK_DETAILS), console.log(uuid);
+              updatePayload({
+                uuid: uuid
+              });
+
+              navigatePage(LINKFORM_PAGES.LINK_DETAILS);
             }}
           >
             <VisibilityOutlinedIcon />
@@ -56,7 +79,7 @@ export const AnalyticsGrid = ({
       minWidth: 150,
     },
     {
-      field: "longLink",
+      field: "originalURL",
       headerName: "Long link",
       flex: 1.2,
       minWidth: 20,
@@ -72,19 +95,23 @@ export const AnalyticsGrid = ({
   ];
 
   return (
-    <DataGrid
-      sx={{ width: "100%" }}
-      rows={tableRows}
-      columns={columns}
-      initialState={{
-        pagination: {
-          paginationModel: {
-            pageSize: 5,
-          },
-        },
-      }}
-      pageSizeOptions={[5]}
-      disableRowSelectionOnClick
-    />
+    <>
+      {tableRows && (
+        <DataGrid
+          sx={{ width: "100%" }}
+          rows={tableRows}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          pageSizeOptions={[5]}
+          disableRowSelectionOnClick
+        />
+      )}
+    </>
   );
 };

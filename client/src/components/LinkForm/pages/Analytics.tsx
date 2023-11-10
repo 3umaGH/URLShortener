@@ -15,11 +15,9 @@ import { PayloadType } from "../LinkForm";
 export const Analytics = ({
   navigatePage,
   updatePayload,
-  payload,
 }: {
   navigatePage: (pageID: number) => void;
   updatePayload: (newPayload: PayloadType) => void;
-  payload?: PayloadType;
 }) => {
   return (
     <>
@@ -30,7 +28,7 @@ export const Analytics = ({
       </Grid>
 
       <Grid item xs={12} sx={{ textAlign: "center" }}>
-        <AnalyticsGrid navigatePage={navigatePage} />
+        <AnalyticsGrid navigatePage={navigatePage} updatePayload={updatePayload} />
       </Grid>
 
       <Grid item xs={12} sx={{ textAlign: "left" }}>
