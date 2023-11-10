@@ -32,6 +32,10 @@ const ShortURLSchema = new mongoose.Schema({
       count: Number,
     },
   ],
+  dateCreated: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 ShortURLSchema.index({ "referrals.referralUrl": 1 });
