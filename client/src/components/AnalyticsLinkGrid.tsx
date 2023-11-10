@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import { LINKFORM_PAGES } from "../constants";
 
 export const AnalyticsGrid = ({
   navigatePage,
@@ -31,7 +32,7 @@ export const AnalyticsGrid = ({
           <IconButton
             color="info"
             onClick={() => {
-              navigatePage(2), console.log(uuid);
+              navigatePage(LINKFORM_PAGES.LINK_DETAILS), console.log(uuid);
             }}
           >
             <VisibilityOutlinedIcon />

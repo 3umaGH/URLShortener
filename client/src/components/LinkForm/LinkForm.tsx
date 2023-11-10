@@ -9,6 +9,7 @@ import { useState } from "react";
 import { ShortLink } from "./pages/ShortLink";
 import { Analytics } from "./pages/Analytics";
 import { PageStats } from "./pages/PageStats";
+import { LINKFORM_PAGES } from "../../constants";
 
 export const LinkForm = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -35,21 +36,21 @@ export const LinkForm = () => {
 
   const formPages: FormPageProps[] = [
     {
-      id: 0,
+      id: LINKFORM_PAGES.MAIN_PAGE,
       title: "Short Link",
       visible: true,
       icon: <InsertLinkOutlinedIcon />,
       pageElement: <ShortLink />,
     },
     {
-      id: 1,
+      id: LINKFORM_PAGES.ANALYTICS,
       title: "Analytics",
       visible: true,
       icon: <BarChartOutlinedIcon />,
       pageElement: <Analytics navigatePage={navigatePage} />,
     },
     {
-      id: 2,
+      id: LINKFORM_PAGES.LINK_DETAILS,
       visible: false,
       pageElement: <PageStats />,
     },
