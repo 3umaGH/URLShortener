@@ -112,7 +112,7 @@ router.get("/:uuid", async (req, res) => {
     res.status(404).json({
       message: "UUID not found.",
     });
-  else return res.status(200).json(shortLink);
+  else return res.status(200).json( {message: "OK", shortLink});
 });
 
 router.delete("/:uuid", async (req, res) => {
