@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+
 import {
   Box,
   Button,
@@ -14,135 +16,205 @@ import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 
-export const ShortLink = () => {
+import axios, { AxiosResponse, AxiosError } from "axios";
+import { AlertTimeout } from "../../AlertTimeout";
+import { LINKFORM_PAGES } from "../../../constants";
+import { PayloadType } from "../LinkForm";
+
+export const ShortLink = ({
+  navigatePage,
+  updatePayload,
+}: {
+  navigatePage: (pageID: number) => void;
+  updatePayload: (newPayload: PayloadType) => void;
+}) => {
+  const [formData, setFormData] = useState({});
+
+  const [messageAlert, sendMessage] = useState({
+    severity: "info" as "error" | "warning" | "info" | "success",
+    text: "",
+    timeout: 5000,
+  });
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    axios
+      .post(`${import.meta.env.VITE_APP_API}/action`, formData)
+      .then((response: AxiosResponse) => {
+        if (response.data.message === "OK") {
+          updatePayload({ originalURL: response.data.originalURL, URLSuffix: response.data.shortLink, uuid: response.data.uuid });
+          navigatePage(LINKFORM_PAGES.LINK_CREATED);
+        }
+      })
+
+      .catch((error: AxiosError) => {
+        const errorMessage =
+          (error.response?.data as { message?: string })?.message ||
+          "Unknown error";
+
+        sendMessage({ severity: "error", text: errorMessage, timeout: 8000 });
+      });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   return (
-    <>
-      <Grid item xs={12} sx={{ textAlign: "left" }}>
-        <Typography variant="h4">
-          <b>Shorten a long link</b>
-        </Typography>
-      </Grid>
-
-      <Grid item xs={12} sx={{ textAlign: "left" }}>
-        <InputLabel htmlFor={"long-link-field"} sx={{ mb: 1 }}>
-          <b>Paste a long URL</b>
-        </InputLabel>
-        <TextField
-          fullWidth
-          id="long-link-field"
-          placeholder="Example: http://super-long-link.com/shorten-it"
-          variant="outlined"
-        />
-      </Grid>
-      <Grid item xs={11} md={4} sx={{ textAlign: "left" }}>
-        <InputLabel htmlFor={"domain-link-field"} sx={{ mb: 1 }}>
-          <b>Domain</b>
-        </InputLabel>
-        <TextField
-          disabled
-          fullWidth
-          id="domain-link-field"
-          value="short.ly"
-          variant="outlined"
-          sx={{ backgroundColor: "#f2f2f2", borderRadius: 1 }}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <LockIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Grid>
-      <Grid item xs={0.5} sx={{ textAlign: "center", mt: 4 }}>
-        <Typography variant="h5">/</Typography>
-      </Grid>
-      <Grid item xs={11.5} md={7.5} sx={{ textAlign: "left" }}>
-        <InputLabel htmlFor={"back-half-field"} sx={{ mb: 0.5 }}>
-          <b>Enter a back-half</b> (optional){" "}
-          <Tooltip
-            arrow
-            enterTouchDelay={0}
-            title="Add your own words at the end of a link (e.g., “short.ly/twitter_bits” instead of “short.ly/2ZonlUz”)"
-          >
-            <InfoOutlinedIcon
-              className="icon centerTop"
-              fontSize="small"
-              sx={{
-                color: "gray",
-              }}
-            />
-          </Tooltip>
-        </InputLabel>
-        <TextField
-          fullWidth
-          id="back-half-field"
-          placeholder="example: my-photo-gallery"
-          variant="outlined"
-        />
-      </Grid>
-      <Grid item xs={12} sx={{ textAlign: "left" }}>
-        <Box sx={{ backgroundColor: "#ecfdff", padding: 1.5 }}>
-          <Typography variant="subtitle1" sx={{ color: "#007c8c" }}>
-            <AutoAwesomeIcon
-              className="icon centerTop"
-              fontSize="small"
-              sx={{
-                color: "#65e6e6",
-                mr: 1,
-              }}
-            />
-            End your link with words that will make it unique
-          </Typography>
-        </Box>
-      </Grid>
-      <Grid item xs={12} md={3.5} sx={{ textAlign: "left" }}>
-        <Button variant="contained" sx={{ width: "100%", p: 1.5, px: 4 }}>
-          Short.ly your link
-        </Button>
-      </Grid>
-      <Grid item xs={12} sx={{ textAlign: "center" }}>
-        <Typography variant="h6">
-          <b>No registration required. Your free plan includes:</b>
-        </Typography>
-
-        <ul
-          style={{
-            padding: 0,
-            margin: 0,
-            listStyleType: "none",
-          }}
+    <form onSubmit={handleSubmit}>
+      {messageAlert && (
+        <AlertTimeout
+          severity={messageAlert.severity}
+          timeout={messageAlert.timeout}
         >
-          <li style={{ display: "inline-block", marginRight: "8px" }}>
-            <CheckCircleOutlinedIcon
-              className="icon centerTop"
-              fontSize="medium"
-              sx={{
-                color: "#2870f7",
-                mr: 1,
-              }}
-            />
-            Short links
-          </li>
-          <li
+          <Typography variant="subtitle1" fontSize={16}>
+            {messageAlert.text}
+          </Typography>
+        </AlertTimeout>
+      )}
+
+      <Grid container spacing={2} sx={{ p: 2 }}>
+        {/*Wrapping in form breaks grid, so adding a new grid container here*/}
+        <Grid item xs={12} sx={{ textAlign: "left" }}>
+          <Typography variant="h4">
+            <b>Shorten a long link</b>
+          </Typography>
+        </Grid>
+        <Grid item xs={12} sx={{ textAlign: "left" }}>
+          <InputLabel htmlFor={"long-link-field"} sx={{ mb: 1 }}>
+            <b>Paste a long URL</b>
+          </InputLabel>
+          <TextField
+            fullWidth
+            id="long-link-field"
+            name="originalURL"
+            placeholder="Example: http://super-long-link.com/shorten-it"
+            variant="outlined"
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={11} md={4} sx={{ textAlign: "left" }}>
+          <InputLabel htmlFor={"domain-link-field"} sx={{ mb: 1 }}>
+            <b>Domain</b>
+          </InputLabel>
+          <TextField
+            disabled
+            fullWidth
+            id="domain-link-field"
+            value="short.ly"
+            variant="outlined"
+            sx={{ backgroundColor: "#f2f2f2", borderRadius: 1 }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <LockIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
+        <Grid item xs={0.5} sx={{ textAlign: "center", mt: 4 }}>
+          <Typography variant="h5">/</Typography>
+        </Grid>
+        <Grid item xs={11.5} md={7.5} sx={{ textAlign: "left" }}>
+          <InputLabel htmlFor={"back-half-field"} sx={{ mb: 0.5 }}>
+            <b>Enter a back-half</b> (optional){" "}
+            <Tooltip
+              arrow
+              enterTouchDelay={0}
+              title="Add your own words at the end of a link (e.g., “short.ly/twitter_bits” instead of “short.ly/2ZonlUz”)"
+            >
+              <InfoOutlinedIcon
+                className="icon centerTop"
+                fontSize="small"
+                sx={{
+                  color: "gray",
+                }}
+              />
+            </Tooltip>
+          </InputLabel>
+          <TextField
+            fullWidth
+            id="back-half-field"
+            name="shortURLPath"
+            placeholder="example: my-photo-gallery"
+            variant="outlined"
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} sx={{ textAlign: "left" }}>
+          <Box sx={{ backgroundColor: "#ecfdff", padding: 1.5 }}>
+            <Typography variant="subtitle1" sx={{ color: "#007c8c" }}>
+              <AutoAwesomeIcon
+                className="icon centerTop"
+                fontSize="small"
+                sx={{
+                  color: "#65e6e6",
+                  mr: 1,
+                }}
+              />
+              End your link with words that will make it unique
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={3.5} sx={{ textAlign: "left" }}>
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ width: "100%", p: 1.5, px: 4 }}
+          >
+            Short.ly your link
+          </Button>
+        </Grid>
+        <Grid item xs={12} sx={{ textAlign: "center" }}>
+          <Typography variant="h6">
+            <b>No registration required. Your free plan includes:</b>
+          </Typography>
+
+          <ul
             style={{
-              display: "inline-block",
-              marginRight: "8px",
-              marginLeft: "18px",
+              padding: 0,
+              margin: 0,
+              listStyleType: "none",
             }}
           >
-            <CheckCircleOutlinedIcon
-              className="icon centerTop"
-              fontSize="medium"
-              sx={{
-                color: "#2870f7",
-                mr: 1,
+            <li style={{ display: "inline-block", marginRight: "8px" }}>
+              <CheckCircleOutlinedIcon
+                className="icon centerTop"
+                fontSize="medium"
+                sx={{
+                  color: "#2870f7",
+                  mr: 1,
+                }}
+              />
+              Short links
+            </li>
+            <li
+              style={{
+                display: "inline-block",
+                marginRight: "8px",
+                marginLeft: "18px",
               }}
-            />
-            Link analytics
-          </li>
-        </ul>
+            >
+              <CheckCircleOutlinedIcon
+                className="icon centerTop"
+                fontSize="medium"
+                sx={{
+                  color: "#2870f7",
+                  mr: 1,
+                }}
+              />
+              Link analytics
+            </li>
+          </ul>
+        </Grid>
       </Grid>
-    </>
+    </form>
   );
 };
