@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
     });
   }
 
-  if (req.body.shortURLPath.length > process.env.MAX_CUSTOM_SUFFIX_LENGTH)
+  if (req.body.shortURLPath && req.body.shortURLPath.length > process.env.MAX_CUSTOM_SUFFIX_LENGTH)
     return res.status(400).json({
       message: `URL back-half is longer than ${process.env.MAX_ORIGINAL_URL_LENGTH} characters.`,
     });
@@ -83,7 +83,7 @@ router.post("/", async (req, res) => {
 
 const insertNewLink = async (originalURL, URLSuffix) => {
   const id = uuid.v4();
-  console.log(id, URLSuffix);
+
   const shortURLInstance = new ShortURL({
     id: id,
     originalURL: originalURL,
