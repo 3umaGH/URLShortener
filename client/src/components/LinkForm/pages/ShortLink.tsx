@@ -20,6 +20,9 @@ import axios, { AxiosResponse, AxiosError } from "axios";
 import { AlertTimeout } from "../../AlertTimeout";
 import { LINKFORM_PAGES } from "../../../constants";
 import { PayloadType } from "../LinkForm";
+import {
+  saveURLToLocalStorage,
+} from "../../../utils/storageUtils";
 
 export const ShortLink = ({
   navigatePage,
@@ -43,8 +46,18 @@ export const ShortLink = ({
       .post(`${import.meta.env.VITE_APP_API}/action`, formData)
       .then((response: AxiosResponse) => {
         if (response.data.message === "OK") {
-          updatePayload({ originalURL: response.data.originalURL, URLSuffix: response.data.shortLink, uuid: response.data.uuid });
+          updatePayload({
+            originalURL: response.data.originalURL,
+            URLSuffix: response.data.shortLink,
+            uuid: response.data.uuid,
+          });
           navigatePage(LINKFORM_PAGES.LINK_CREATED);
+
+          saveURLToLocalStorage({
+            originalURL: response.data.originalURL,
+            URLSuffix: response.data.shortLink,
+            uuid: response.data.uuid,
+          });
         }
       })
 
