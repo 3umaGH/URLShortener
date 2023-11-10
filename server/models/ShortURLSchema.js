@@ -15,6 +15,11 @@ const ShortURLSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  totalClicks: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
   referrals: [
     {
       referralUrl: String,
