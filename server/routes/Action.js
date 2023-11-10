@@ -3,6 +3,8 @@ const router = express.Router();
 const ShortURL = require("../models/ShortURLSchema");
 const uuid = require("uuid");
 
+require('dotenv').config()
+
 const { generateRandomString, isValidURL } = require("../util/utils");
 
 const MAX_RETRIES = 3;
@@ -45,7 +47,7 @@ router.post("/", async (req, res) => {
   }
 
   while (retries < MAX_RETRIES) {
-    // Try generating new properties id or generated suffix already exist in DB.
+    // Try generating new properties id or generated if suffix already exist in DB.
     try {
       const generatedURL = await insertNewLink(
         req.body.originalURL,
