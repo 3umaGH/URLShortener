@@ -1,4 +1,4 @@
-import { Container, IconButton, Tooltip } from "@mui/material";
+import { Container, IconButton, Tooltip, Grid } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
 import {
@@ -8,6 +8,8 @@ import {
 import { LINKFORM_PAGES } from "../constants";
 import { getSavedURLs } from "../utils/storageUtils";
 import { PayloadType } from "./LinkForm/LinkForm";
+
+import CircularProgress from "@mui/material/CircularProgress";
 
 type TableRowProps = {
   id: number;
@@ -33,7 +35,7 @@ export const ShortLinkList = ({
     // Load data from local storage on first render
     const savedData = getSavedURLs();
 
-    setTableRows(
+    setTimeout(() => setTableRows(
       savedData.map((url) => {
         return {
           id: url.id || 0,
@@ -42,7 +44,8 @@ export const ShortLinkList = ({
           originalURL: url.originalURL,
         };
       })
-    );
+    ),250)
+
   }, []);
 
   const ActionsComponent = ({ uuid }: ActionsProps) => {
@@ -96,7 +99,7 @@ export const ShortLinkList = ({
 
   return (
     <>
-      {tableRows && (
+      {tableRows ? (
         <DataGrid
           sx={{ width: "100%" }}
           rows={tableRows}
@@ -111,6 +114,10 @@ export const ShortLinkList = ({
           pageSizeOptions={[5]}
           disableRowSelectionOnClick
         />
+      ) : (
+        <Grid item xs={12} sx={{height:"370px", display:"flex", justifyContent:"center", alignItems:"center"}}>
+        <CircularProgress size={90} sx={{ color: "gray" }} />
+      </Grid>
       )}
     </>
   );

@@ -81,7 +81,7 @@ export const LinkForm = () => {
   ];
 
   return (
-    <Box sx={{ textAlign: "center", mb: 15 }}>
+    <Box sx={{ textAlign: "center", mb: 15}}>
       <Slide
         direction="down"
         in={true}
@@ -123,7 +123,7 @@ export const LinkForm = () => {
 
               borderColor: "red",
               border: "solid 3px #c4c4c4",
-
+              minHeight: "550px",
               zIndex: 0,
             }}
           >

@@ -13,6 +13,8 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { PayloadType } from "../LinkForm";
 import axios, { AxiosResponse } from "axios";
 
+import CircularProgress from "@mui/material/CircularProgress";
+
 type Referral = {
   referralUrl: string;
   count: number;
@@ -33,7 +35,11 @@ type URLDetailsType = {
   dateCreated: string;
 };
 
-export const ShortLinkStatsView = ({ payload = {} }: { payload?: PayloadType }) => {
+export const ShortLinkStatsView = ({
+  payload = {},
+}: {
+  payload?: PayloadType;
+}) => {
   const [pageStatistics, setPageStatistics] = useState<URLDetailsType>();
   const { uuid } = payload ?? {};
 
@@ -57,7 +63,7 @@ export const ShortLinkStatsView = ({ payload = {} }: { payload?: PayloadType }) 
 
   return (
     <>
-      {pageStatistics && (
+      {pageStatistics ? (
         <>
           <Grid item xs={12} sx={{ textAlign: "left" }}>
             <Typography variant="h4">
@@ -163,11 +169,15 @@ export const ShortLinkStatsView = ({ payload = {} }: { payload?: PayloadType }) 
           </Grid>
 
           <Grid item xs={12}>
-            <Button variant="contained" color="error" sx={{ mt: 1 }}>
+            <Button variant="contained" color="error" sx={{ mt: 3.5 }}>
               Delete Link
             </Button>
           </Grid>
         </>
+      ) : (
+        <Grid item xs={12} sx={{height:"470px", display:"flex", justifyContent:"center", alignItems:"center"}}>
+          <CircularProgress size={90} sx={{ color: "gray" }} />
+        </Grid>
       )}
     </>
   );
