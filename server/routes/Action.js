@@ -3,7 +3,7 @@ const router = express.Router();
 const ShortURL = require("../models/ShortURLSchema");
 const uuid = require("uuid");
 
-require('dotenv').config()
+require("dotenv").config();
 
 const { generateRandomString, isValidURL } = require("../util/utils");
 
@@ -13,7 +13,8 @@ router.post("/", async (req, res) => {
   if (!req.body.originalURL || !isValidURL(req.body.originalURL))
     // Check if original url prop exists and is valid URL
     return res.status(400).json({
-      message: "Invalid URL, Make sure your URL starts with http:// or https://",
+      message:
+        "Invalid URL, Make sure your URL starts with http:// or https://",
     });
 
   if (
@@ -96,5 +97,22 @@ const insertNewLink = async (originalURL, URLSuffix) => {
 
   return URLSuffix;
 };
+
+router.get("/:uuid", async (req, res) => {
+  const uuid = req.params.uuid;
+
+  if (!uuid || uuid.length !== 36)
+    res.status(400).json({
+      message: "Invalid uuid format.",
+    });
+
+  const shortLink = await ShortURL.findOne({ id: uuid }).exec();
+
+  if (!shortLink)
+    res.status(404).json({
+      message: "UUID not found.",
+    }); else
+    return res.status(200).json(shortLink);
+});
 
 module.exports = router;
