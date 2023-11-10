@@ -10,29 +10,37 @@ import { ShortLink } from "./pages/ShortLink";
 import { Analytics } from "./pages/Analytics";
 import { PageStats } from "./pages/PageStats";
 import { LINKFORM_PAGES } from "../../constants";
+import { NewLink } from "./pages/NewLink";
+
+type VisiblePageProps = {
+  visible: true;
+  id: number;
+  title: string;
+  icon: JSX.Element;
+  pageElement: JSX.Element;
+};
+
+type HiddenPageProps = {
+  visible: false;
+  id: number;
+  pageElement: JSX.Element;
+};
+
+type FormPageProps = VisiblePageProps | HiddenPageProps;
+
+export type PayloadType<T = Record<string, unknown>> = T;
 
 export const LinkForm = () => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [payload, setPayload] = useState<PayloadType>({}); // Used to move data between pages
 
   const navigatePage = (pageID: number) => {
     setCurrentPage(pageID);
   };
 
-  type VisiblePageProps = {
-    visible: true;
-    id: number;
-    title: string;
-    icon: JSX.Element;
-    pageElement: JSX.Element;
+  const handlePayloadChange = (newPayload: PayloadType) => {
+    setPayload(newPayload);
   };
-
-  type HiddenPageProps = {
-    visible: false;
-    id: number;
-    pageElement: JSX.Element;
-  };
-
-  type FormPageProps = VisiblePageProps | HiddenPageProps;
 
   const formPages: FormPageProps[] = [
     {
@@ -40,14 +48,30 @@ export const LinkForm = () => {
       title: "Short Link",
       visible: true,
       icon: <InsertLinkOutlinedIcon />,
-      pageElement: <ShortLink />,
+      pageElement: (
+        <ShortLink
+          navigatePage={navigatePage}
+          updatePayload={handlePayloadChange}
+        />
+      ),
     },
     {
       id: LINKFORM_PAGES.ANALYTICS,
       title: "Analytics",
       visible: true,
       icon: <BarChartOutlinedIcon />,
-      pageElement: <Analytics navigatePage={navigatePage} />,
+      pageElement: (
+        <Analytics
+          navigatePage={navigatePage}
+          payload={payload}
+          updatePayload={handlePayloadChange}
+        />
+      ),
+    },
+    {
+      id: LINKFORM_PAGES.LINK_CREATED,
+      visible: false,
+      pageElement: <NewLink navigatePage={navigatePage} payload={payload} />,
     },
     {
       id: LINKFORM_PAGES.LINK_DETAILS,
@@ -57,7 +81,7 @@ export const LinkForm = () => {
   ];
 
   return (
-    <Box sx={{ textAlign: "center", mb:15 }}>
+    <Box sx={{ textAlign: "center", mb: 15 }}>
       <Slide
         direction="down"
         in={true}
@@ -105,7 +129,7 @@ export const LinkForm = () => {
           >
             <Container sx={{ p: 4 }}>
               <Grid container spacing={2}>
-                {formPages[currentPage].pageElement}
+                {formPages.find((page) => page.id === currentPage)?.pageElement}
               </Grid>
             </Container>
           </Paper>

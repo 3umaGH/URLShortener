@@ -1,13 +1,25 @@
-import { Button, Grid, TextField, InputLabel, Typography, Tooltip } from "@mui/material";
+import {
+  Button,
+  Grid,
+  TextField,
+  InputLabel,
+  Typography,
+  Tooltip,
+} from "@mui/material";
 
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import { AnalyticsGrid } from "../../AnalyticsLinkGrid";
+import { PayloadType } from "../LinkForm";
 
 export const Analytics = ({
   navigatePage,
+  updatePayload,
+  payload,
 }: {
   navigatePage: (pageID: number) => void;
+  updatePayload: (newPayload: PayloadType) => void;
+  payload?: PayloadType;
 }) => {
   return (
     <>
