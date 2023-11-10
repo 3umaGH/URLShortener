@@ -120,7 +120,7 @@ export const ShortLink = ({
             disabled
             fullWidth
             id="domain-link-field"
-            value="short.ly"
+            value={import.meta.env.VITE_APP_API}
             variant="outlined"
             sx={{ backgroundColor: "#f2f2f2", borderRadius: 1 }}
             InputProps={{
@@ -141,7 +141,7 @@ export const ShortLink = ({
             <Tooltip
               arrow
               enterTouchDelay={0}
-              title="Add your own words at the end of a link (e.g., “short.ly/twitter_bits” instead of “short.ly/2ZonlUz”)"
+              title={`Add your own words at the end of a link (e.g., “${import.meta.env.VITE_APP_API}/twitter_bits” instead of “${import.meta.env.VITE_APP_API}/2ZonlUz”)`}
             >
               <InfoOutlinedIcon
                 className="icon centerTop"
@@ -182,7 +182,7 @@ export const ShortLink = ({
             variant="contained"
             sx={{ width: "100%", p: 1.5, px: 4 }}
           >
-            Short.ly your link
+            Make your link short
           </Button>
         </Grid>
         <Grid item xs={12} sx={{ textAlign: "center" }}>

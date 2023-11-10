@@ -37,7 +37,7 @@ export const AnalyticsGrid = ({
         return {
           id: url.id || 0,
           uuid: url.uuid,
-          shortLink: `https://short.ly/${url.URLSuffix}`,
+          shortLink: `${import.meta.env.VITE_APP_API}${url.URLSuffix}`,
           originalURL: url.originalURL,
         };
       })
