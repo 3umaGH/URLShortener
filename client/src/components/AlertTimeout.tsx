@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Alert, Collapse, Typography } from "@mui/material";
+import { Alert, Collapse, Typography, Container } from "@mui/material";
 import { AlertTimeoutProps } from "../constants";
 
 export const AlertTimeout = ({ sx, message }: AlertTimeoutProps) => {
@@ -12,7 +12,16 @@ export const AlertTimeout = ({ sx, message }: AlertTimeoutProps) => {
   }, [message.timeout]);
 
   return (
-    <>
+    <Container
+      disableGutters
+      sx={{
+        position: "absolute",
+        width: "100%",
+        top: "10%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+      }}
+    >
       <Collapse in={isVisible} timeout={1000}>
         <Alert severity={message.severity} sx={sx}>
           <Typography variant="subtitle1" fontSize={16}>
@@ -20,6 +29,6 @@ export const AlertTimeout = ({ sx, message }: AlertTimeoutProps) => {
           </Typography>
         </Alert>
       </Collapse>
-    </>
+    </Container>
   );
 };

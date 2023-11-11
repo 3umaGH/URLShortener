@@ -93,7 +93,11 @@ export const ShortLinkCreateView = ({
   return (
     <form onSubmit={handleSubmit}>
       {messageAlert && (
-        <AlertTimeout key={messageAlert.key} message={messageAlert.message} />
+        <AlertTimeout
+          key={messageAlert.key}
+          message={messageAlert.message}
+          sx={{ justifyContent: "center" }}
+        />
       )}
 
       <Grid container spacing={2} sx={{ p: 2 }}>

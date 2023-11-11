@@ -164,7 +164,7 @@ export const ShortLinkList = ({
         <AlertTimeout
           key={messageAlert.key}
           message={messageAlert.message}
-          sx={{ mb: 5, mt: 1.5 }}
+          sx={{ mb: 5, mt: 1.5, justifyContent: "center" }}
         />
       )}
 

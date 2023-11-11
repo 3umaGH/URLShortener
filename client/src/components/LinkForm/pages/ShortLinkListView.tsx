@@ -117,6 +117,7 @@ export const ShortLinkListView = ({
               <AlertTimeout
                 key={messageAlert.key}
                 message={messageAlert.message}
+                sx={{ justifyContent: "center" }}
               />
             )}
           </Grid>
