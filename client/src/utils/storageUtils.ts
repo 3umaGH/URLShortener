@@ -9,9 +9,10 @@ export const saveURLToLocalStorage = ({
   originalURL,
   URLSuffix,
   uuid,
-}: SavedURL): void => {
-  if (!localStorage.getItem("saved_urls"))
-    localStorage.setItem("saved_urls", JSON.stringify([]));
+}: SavedURL): boolean => {
+  const savedURLs = localStorage.getItem("saved_urls");
+
+  if (!savedURLs) localStorage.setItem("saved_urls", JSON.stringify([]));
 
   const savedUrlsString = localStorage.getItem("saved_urls");
   const savedUrls = savedUrlsString ? JSON.parse(savedUrlsString) : [];
@@ -26,6 +27,21 @@ export const saveURLToLocalStorage = ({
   });
 
   localStorage.setItem("saved_urls", JSON.stringify(savedUrls));
+
+  return true;
+};
+
+export const deleteURLfromStorage = (uuid: string) => {
+  const savedURLs = localStorage.getItem("saved_urls");
+
+  if (!savedURLs) return false;
+
+  const parsedURLs = JSON.parse(savedURLs);
+
+  localStorage.setItem(
+    "saved_urls",
+    JSON.stringify(parsedURLs.filter((url: SavedURL) => url.uuid !== uuid))
+  );
 };
 
 export const getSavedURLs = (): SavedURL[] => {

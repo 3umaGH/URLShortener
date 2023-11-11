@@ -6,11 +6,13 @@ import {
   VisibilityOutlined as VisibilityOutlinedIcon,
 } from "@mui/icons-material";
 import { AlertTimeoutProps, LINKFORM_PAGES } from "../constants";
-import { getSavedURLs } from "../utils/storageUtils";
+import { deleteURLfromStorage, getSavedURLs } from "../utils/storageUtils";
 import { PayloadType } from "./LinkForm/LinkForm";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import { AlertTimeout } from "./AlertTimeout";
+import { deleteShortLink } from "../api/Api";
+import { AxiosResponse } from "axios";
 
 type TableRowProps = {
   id: number;
@@ -20,6 +22,7 @@ type TableRowProps = {
 };
 
 type ActionsProps = {
+  shortURL: string;
   uuid: string;
 };
 
@@ -59,7 +62,12 @@ export const ShortLinkList = ({
     }, 300);
   }, []);
 
-  const ActionsComponent = ({ uuid }: ActionsProps) => {
+  const handleRowDelete = (uuid: string) => {
+    setTableRows((data) => data?.filter((row) => row.uuid !== uuid));
+    deleteURLfromStorage(uuid);
+  };
+
+  const ActionsComponent = ({ shortURL, uuid }: ActionsProps) => {
     return (
       <Container sx={{ m: 2 }}>
         <Tooltip title="View Analytics" arrow>
@@ -77,7 +85,44 @@ export const ShortLinkList = ({
         </Tooltip>
 
         <Tooltip title="Delete Link" arrow>
-          <IconButton color="error">
+          <IconButton
+            color="error"
+            onClick={() => {
+              //TODO :confirmation
+              deleteShortLink(uuid)
+                .then((response: AxiosResponse) => {
+                  if (response.status === 204) {
+                    sendMessage({
+                      key: Date.now(),
+                      message: {
+                        severity: "success",
+                        text: "Successfully deleted " + shortURL,
+                        timeout: 1000,
+                      },
+                    });
+
+                    handleRowDelete(uuid);
+                  }
+                })
+                .catch((error) => {
+                  let message = error.message;
+
+                  if (error.response.status === 404) {
+                    message = "Short link not found. Already deleted?";
+                    handleRowDelete(uuid);
+                  }
+
+                  sendMessage({
+                    key: Date.now(),
+                    message: {
+                      severity: "error",
+                      text: message,
+                      timeout: 6000,
+                    },
+                  });
+                });
+            }}
+          >
             <DeleteOutlineOutlinedIcon />
           </IconButton>
         </Tooltip>
@@ -104,7 +149,12 @@ export const ShortLinkList = ({
       type: "actions",
       flex: 0.4,
       minWidth: 150,
-      renderCell: (params) => <ActionsComponent uuid={params.row.uuid} />,
+      renderCell: (params) => (
+        <ActionsComponent
+          shortURL={params.row.shortLink}
+          uuid={params.row.uuid}
+        />
+      ),
     },
   ];
 
@@ -135,7 +185,11 @@ export const ShortLinkList = ({
         slots={{
           noRowsOverlay: () => (
             <Box sx={{ my: 2 }}>
-              <CircularProgress size={90} sx={{ color: "gray" }} />
+              {typeof tableRows === "undefined" ? (
+                <CircularProgress size={90} sx={{ color: "gray" }} />
+              ) : (
+                <p>No Rows</p>
+              )}
             </Box>
           ),
         }}
