@@ -14,8 +14,9 @@ import { PayloadType } from "../LinkForm";
 import axios, { AxiosResponse } from "axios";
 
 import CircularProgress from "@mui/material/CircularProgress";
-import { AlertTimeoutProps } from "../../../constants";
+import { AlertTimeoutProps, LINKFORM_PAGES } from "../../../constants";
 import { AlertTimeout } from "../../AlertTimeout";
+import { deleteURLfromStorage } from "../../../utils/storageUtils";
 
 type Referral = {
   referralUrl: string;
@@ -38,8 +39,10 @@ type URLDetailsType = {
 };
 
 export const ShortLinkStatsView = ({
+  navigatePage,
   payload = {},
 }: {
+  navigatePage: (pageID: number) => void;
   payload?: PayloadType;
 }) => {
   const [pageStatistics, setPageStatistics] = useState<URLDetailsType>();
@@ -59,15 +62,16 @@ export const ShortLinkStatsView = ({
             setPageStatistics(apiResponse);
             setLoading(false);
           }
-
-
-        }).catch((error) => {
+        })
+        .catch((error) => {
           setLoading(false);
           sendMessage({
             key: Date.now(),
             message: {
               severity: "error",
-              text: `Unable to load data. ${error.response.data.message ?? error.message}`,
+              text: `Unable to load data. ${
+                error.response.data.message ?? error.message
+              }`,
               timeout: 60000,
             },
           });
@@ -77,14 +81,22 @@ export const ShortLinkStatsView = ({
     if (!pageStatistics) fetch();
   }, [pageStatistics, uuid]);
 
+  const handleDelete = () => {
+    const URLid = pageStatistics?.id;
+
+    if (URLid) {
+      deleteURLfromStorage(URLid);
+      navigatePage(LINKFORM_PAGES.LINK_LIST);
+    }
+
+    //TODO: confirmation
+  };
+
   return (
     <>
-    {messageAlert && (
-      <Grid item xs={12}>
-        <AlertTimeout
-          key={messageAlert.key}
-          message={messageAlert.message}
-        />
+      {messageAlert && (
+        <Grid item xs={12}>
+          <AlertTimeout key={messageAlert.key} message={messageAlert.message} />
         </Grid>
       )}
 
@@ -194,15 +206,30 @@ export const ShortLinkStatsView = ({
           </Grid>
 
           <Grid item xs={12}>
-            <Button variant="contained" color="error" sx={{ mt: 3.5 }}>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleDelete}
+              sx={{ mt: 3.5 }}
+            >
               Delete Link
             </Button>
           </Grid>
         </>
-      ) : isLoading && (
-        <Grid item xs={12} sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-          <CircularProgress size={90} sx={{ color: "gray" }} />
-        </Grid>
+      ) : (
+        isLoading && (
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <CircularProgress size={90} sx={{ color: "gray" }} />
+          </Grid>
+        )
       )}
     </>
   );
