@@ -15,7 +15,10 @@ import { PayloadType } from "../LinkForm";
 import { getShortLink } from "../../../api/Api";
 import { AlertTimeoutProps } from "../../../constants";
 import { AlertTimeout } from "../../AlertTimeout";
-import { getSavedURLs, saveURLToLocalStorage } from "../../../utils/storageUtils";
+import {
+  getSavedURLs,
+  saveURLToLocalStorage,
+} from "../../../utils/storageUtils";
 
 type FormProps = {
   uuid: string;
@@ -39,14 +42,18 @@ export const ShortLinkListView = ({
     getShortLink(formData.uuid)
       .then((response) => {
         const shortLink = response.data.shortLink;
-        const hasMatch = getSavedURLs().some((row) => row.uuid===shortLink.id)
+        const hasMatch = getSavedURLs().some(
+          (row) => row.uuid === shortLink.id
+        );
 
-        if(hasMatch) {
+        if (hasMatch) {
           sendMessage({
             key: Date.now(),
             message: {
               severity: "warning",
-              text: `${import.meta.env.VITE_APP_DOMAIN}${shortLink.URLSuffix} already exists!`,
+              text: `${import.meta.env.VITE_APP_DOMAIN}${
+                shortLink.URLSuffix
+              } already exists!`,
               timeout: 6000,
             },
           });
@@ -66,7 +73,9 @@ export const ShortLinkListView = ({
           key: Date.now(),
           message: {
             severity: "success",
-            text: `Added ${import.meta.env.VITE_APP_DOMAIN}${shortLink.URLSuffix}`,
+            text: `Added ${import.meta.env.VITE_APP_DOMAIN}${
+              shortLink.URLSuffix
+            }`,
             timeout: 6000,
           },
         });
@@ -118,6 +127,7 @@ export const ShortLinkListView = ({
 
         <Grid item xs={12} sx={{ textAlign: "center" }}>
           <ShortLinkList
+            key={isSubmitting.toString()} // Using key to rerender the component when isSubmitting state updates.
             navigatePage={navigatePage}
             updatePayload={updatePayload}
           />
