@@ -146,7 +146,7 @@ router.delete("/:uuid", async (req, res) => {
     return res.status(404).json({
       message: "UUID not found.",
     });
-  else return res.status(204);
+  else return res.status(204).send();
 });
 
 module.exports = router;
