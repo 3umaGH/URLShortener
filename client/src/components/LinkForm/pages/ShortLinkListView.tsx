@@ -111,7 +111,7 @@ export const ShortLinkListView = ({
   return (
     <Container disableGutters>
       <form onSubmit={handleSubmit}>
-        <Grid container spacing={2} sx={{ p: 2 }}>
+        <Grid container spacing={0} sx={{ p: 2 }}>
           <Grid item xs={12} sx={{ textAlign: "left" }}>
             {messageAlert && (
               <AlertTimeout
@@ -122,7 +122,7 @@ export const ShortLinkListView = ({
             )}
           </Grid>
 
-          <Grid item xs={12} sx={{ textAlign: "left" }}>
+          <Grid item xs={12} sx={{ textAlign: "left", mb:2 }}>
             <Typography variant="h4">
               <b>View link analytics</b>
             </Typography>
@@ -137,7 +137,7 @@ export const ShortLinkListView = ({
           </Grid>
 
           <Grid item xs={12} sx={{ textAlign: "left", mt: 9 }}>
-            <InputLabel htmlFor={"secret-key-field"} sx={{ mb: -1 }}>
+            <InputLabel htmlFor={"secret-key-field"} >
               <b>Paste secret key</b>{" "}
               <Tooltip
                 arrow
@@ -168,15 +168,14 @@ export const ShortLinkListView = ({
               placeholder="Example: 550e8400-e29b-41d4-a716-446655440000"
               variant="outlined"
               onChange={handleChange}
-              sx={{ width: "100%" }}
+              sx={{ width: "98%" }}
             />
           </Grid>
-          <Grid item xs={12} sm={2} sx={{ textAlign: "left" }}>
+          <Grid item xs={12} sm={2} sx={{ textAlign: "left"}}>
             <Button
               variant="contained"
               type="submit"
               sx={{ width: "100%", p: 1.95 }}
-              color="secondary"
               disabled={isSubmitting}
             >
               {isSubmitting ? (
