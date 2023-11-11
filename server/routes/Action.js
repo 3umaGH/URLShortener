@@ -119,14 +119,14 @@ router.get("/:uuid", async (req, res) => {
   const uuid = req.params.uuid;
 
   if (!uuid || uuid.length !== 36)
-    res.status(400).json({
+    return res.status(400).json({
       message: "Invalid uuid format.",
     });
 
   const shortLink = await ShortURL.findOne({ id: uuid }).exec();
 
   if (!shortLink)
-    res.status(404).json({
+   return res.status(404).json({
       message: "UUID not found.",
     });
   else return res.status(200).json({ message: "OK", shortLink });
@@ -136,7 +136,7 @@ router.delete("/:uuid", async (req, res) => {
   const uuid = req.params.uuid;
 
   if (!uuid || uuid.length !== 36)
-    res.status(400).json({
+   return  res.status(400).json({
       message: "Invalid uuid format.",
     });
 
