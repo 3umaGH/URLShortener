@@ -9,6 +9,7 @@ const {
   generateRandomString,
   isValidURL,
   isValidCharacters,
+  containsProfanity,
 } = require("../util/utils");
 
 // TODO: Rate limited middleware !@!@!@!@!@
@@ -16,10 +17,7 @@ const {
 const MAX_RETRIES = 3;
 
 router.post("/", async (req, res) => {
-  if (
-    !req.body.originalURL ||
-    !isValidURL(req.body.originalURL)
-  )
+  if (!req.body.originalURL || !isValidURL(req.body.originalURL))
     // Check if original url prop exists and is valid URL
     return res.status(400).json({
       message:
@@ -44,10 +42,19 @@ router.post("/", async (req, res) => {
       message: `URL back-half is longer than ${process.env.MAX_ORIGINAL_URL_LENGTH} characters.`,
     });
 
-  if (!req.body.shortURLPath === "" && !isValidCharacters(req.body.shortURLPath))
+  if (req.body.shortURLPath !== "" && !isValidCharacters(req.body.shortURLPath))
     return res.status(400).json({
-      message: `Only A-Z characters and numbers allowed.`,
+      message: `Only A-Z characters and numbers are allowed in back-half!`,
     });
+
+  if (
+    req.body.shortURLPath !== "" &&
+    (await containsProfanity(req.body.shortURLPath))
+  ) {
+    return res.status(400).json({
+      message: `No profanity allowed.`,
+    });
+  }
 
   const isCustomSuffixRequested = req.body.shortURLPath ? true : false;
   let linkSuffix = isCustomSuffixRequested
@@ -128,7 +135,7 @@ router.get("/:uuid", async (req, res) => {
   const shortLink = await ShortURL.findOne({ id: uuid }).exec();
 
   if (!shortLink)
-   return res.status(404).json({
+    return res.status(404).json({
       message: "UUID not found.",
     });
   else return res.status(200).json({ message: "OK", shortLink });
@@ -138,7 +145,7 @@ router.delete("/:uuid", async (req, res) => {
   const uuid = req.params.uuid;
 
   if (!uuid || uuid.length !== 36)
-   return  res.status(400).json({
+    return res.status(400).json({
       message: "Invalid uuid format.",
     });
 

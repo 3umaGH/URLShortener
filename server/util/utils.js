@@ -21,17 +21,32 @@ module.exports.isValidURL = (string) => {
 };
 
 module.exports.getGeoInfo = async (clientIP) => {
-    try {
-      const response = await fetch(`http://ip-api.com/json/${clientIP}`);
-      const json = await response.json();
-      return json.status === "success" ? json.country : "Unknown country";
-    } catch (error) {
-      console.error('Error fetching IP information:', error);
-      return "Unknown country";
-    }
+  try {
+    const response = await fetch(`http://ip-api.com/json/${clientIP}`);
+    const json = await response.json();
+    return json.status === "success" ? json.country : "Unknown country";
+  } catch (error) {
+    console.error("Error fetching IP information:", error);
+    return "Unknown country";
+  }
 };
 
-module.exports.isValidCharacters = (string) =>{
-  const regex = /^[a-zA-Z0-9]+$/
+module.exports.containsProfanity = async (string) => {
+  try {
+    const response = await fetch(`https://www.purgomalum.com/service/containsprofanity?text=${string}`);
+    
+    if (!response.ok) 
+      throw new Error(`Network response was not ok: ${response.statusText}`);
+    
+    return await response.text() === "true";
+
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+    return false;
+  }
+};
+
+module.exports.isValidCharacters = (string) => {
+  const regex = /^[a-zA-Z0-9]+$/;
   return regex.test(string);
-}
+};
