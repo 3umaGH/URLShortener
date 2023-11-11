@@ -8,6 +8,7 @@ import {
   TextField,
   Typography,
   Tooltip,
+  CircularProgress,
 } from "@mui/material";
 import {
   Lock as LockIcon,
@@ -30,9 +31,11 @@ export const ShortLinkCreateView = ({
 }) => {
   const [formData, setFormData] = useState({});
   const [messageAlert, sendMessage] = useState<AlertTimeoutProps>();
+  const [isLoading, setLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
 
     axios
       .post(`${import.meta.env.VITE_APP_API}/action`, formData)
@@ -59,6 +62,7 @@ export const ShortLinkCreateView = ({
           "Unknown error";
 
         sendMessage({ key:Date.now(), severity: "error", text: errorMessage, timeout: 3000 });
+        setLoading(false);
       });
   };
 
@@ -174,7 +178,7 @@ export const ShortLinkCreateView = ({
             variant="contained"
             sx={{ width: "100%", p: 1.5, px: 4 }}
           >
-            Make your link short
+            {isLoading ? <CircularProgress size={25} sx={{ color: "white" }} /> : "Make your link short"}
           </Button>
         </Grid>
         <Grid item xs={12} sx={{ textAlign: "center" }}>
