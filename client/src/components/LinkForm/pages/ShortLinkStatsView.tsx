@@ -14,6 +14,8 @@ import { PayloadType } from "../LinkForm";
 import axios, { AxiosResponse } from "axios";
 
 import CircularProgress from "@mui/material/CircularProgress";
+import { AlertTimeoutProps } from "../../../constants";
+import { AlertTimeout } from "../../AlertTimeout";
 
 type Referral = {
   referralUrl: string;
@@ -41,6 +43,9 @@ export const ShortLinkStatsView = ({
   payload?: PayloadType;
 }) => {
   const [pageStatistics, setPageStatistics] = useState<URLDetailsType>();
+  const [messageAlert, sendMessage] = useState<AlertTimeoutProps>();
+  const [isLoading, setLoading] = useState(true);
+
   const { uuid } = payload ?? {};
 
   useEffect(() => {
@@ -52,9 +57,20 @@ export const ShortLinkStatsView = ({
 
           if (apiResponse && response.data.message === "OK") {
             setPageStatistics(apiResponse);
-          } else {
-            //TODO: Error handling
+            setLoading(false);
           }
+
+
+        }).catch((error) => {
+          setLoading(false);
+          sendMessage({
+            key: Date.now(),
+            message: {
+              severity: "error",
+              text: `Unable to load data. ${error.response.data.message ?? error.message}`,
+              timeout: 60000,
+            },
+          });
         });
     };
 
@@ -63,6 +79,15 @@ export const ShortLinkStatsView = ({
 
   return (
     <>
+    {messageAlert && (
+      <Grid item xs={12}>
+        <AlertTimeout
+          key={messageAlert.key}
+          message={messageAlert.message}
+        />
+        </Grid>
+      )}
+
       {pageStatistics ? (
         <>
           <Grid item xs={12} sx={{ textAlign: "left" }}>
@@ -174,8 +199,8 @@ export const ShortLinkStatsView = ({
             </Button>
           </Grid>
         </>
-      ) : (
-        <Grid item xs={12} sx={{height:"470px", display:"flex", justifyContent:"center", alignItems:"center"}}>
+      ) : isLoading && (
+        <Grid item xs={12} sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
           <CircularProgress size={90} sx={{ color: "gray" }} />
         </Grid>
       )}
