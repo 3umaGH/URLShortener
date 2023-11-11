@@ -70,10 +70,13 @@ export const ShortLinkCreateView = ({
 
         sendMessage({
           key: Date.now(),
-          severity: "error",
-          text: errorMessage,
-          timeout: 3000,
+          message: {
+            severity: "error",
+            text: errorMessage,
+            timeout: 6000,
+          },
         });
+
         setLoading(false);
       });
   };
@@ -90,7 +93,7 @@ export const ShortLinkCreateView = ({
   return (
     <form onSubmit={handleSubmit}>
       {messageAlert && (
-        <AlertTimeout key={messageAlert.key} message={messageAlert} />
+        <AlertTimeout key={messageAlert.key} message={messageAlert.message} />
       )}
 
       <Grid container spacing={2} sx={{ p: 2 }}>

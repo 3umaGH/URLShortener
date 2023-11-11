@@ -8,11 +8,13 @@ export const LINKFORM_PAGES = {
 };
 
 export type AlertTimeoutProps = {
-  key: number;
-  text: string;
-  severity: "error" | "warning" | "info" | "success";
-  timeout: number;
   sx?: SxProps;
+  key: number;
+  message: {
+    text: string;
+    severity: "error" | "warning" | "info" | "success";
+    timeout: number;
+  };
 };
 
 export type CreateNewLinkProps = {
