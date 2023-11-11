@@ -32,7 +32,7 @@ export const NewCreatedLinkView = ({
           </b>
         </Typography>
         <a className="urlLink" href="#">
-          {import.meta.env.VITE_APP_API}
+          {import.meta.env.VITE_APP_API}/
           {(URLSuffix as string) ?? "N/A"}
         </a>
       </Grid>
