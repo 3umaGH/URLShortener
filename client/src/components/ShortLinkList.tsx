@@ -1,4 +1,4 @@
-import { Container, IconButton, Tooltip, Grid } from "@mui/material";
+import { Container, IconButton, Tooltip, Box } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
 import {
@@ -32,7 +32,6 @@ export const ShortLinkList = ({
 }) => {
   const [tableRows, setTableRows] = useState<TableRowProps[]>();
   const [messageAlert, sendMessage] = useState<AlertTimeoutProps>();
-  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     // Load data from local storage on first render
@@ -46,8 +45,6 @@ export const ShortLinkList = ({
             originalURL: url.originalURL,
           }))
         );
-
-        setLoading(false);
       } catch (error) {
         sendMessage({
           key: Date.now(),
@@ -59,8 +56,7 @@ export const ShortLinkList = ({
         });
         console.error("Error mapping data:", error);
       }
-      setLoading(false);
-    }, 250);
+    }, 300);
   }, []);
 
   const ActionsComponent = ({ uuid }: ActionsProps) => {
@@ -122,21 +118,6 @@ export const ShortLinkList = ({
         />
       )}
 
-      {isLoading && (
-        <Grid
-          item
-          xs={12}
-          sx={{
-            height: "370px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <CircularProgress size={90} sx={{ color: "gray" }} />
-        </Grid>
-      )}
-
       <DataGrid
         sx={{ width: "100%" }}
         rows={tableRows ?? []}
@@ -150,6 +131,14 @@ export const ShortLinkList = ({
         }}
         pageSizeOptions={[5]}
         disableRowSelectionOnClick
+        autoHeight
+        slots={{
+          noRowsOverlay: () => (
+            <Box sx={{ my: 2 }}>
+              <CircularProgress size={90} sx={{ color: "gray" }} />
+            </Box>
+          ),
+        }}
       />
     </>
   );
