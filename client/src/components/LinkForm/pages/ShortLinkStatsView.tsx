@@ -11,12 +11,13 @@ import {
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { PayloadType } from "../LinkForm";
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import { AlertTimeoutProps, LINKFORM_PAGES } from "../../../constants";
 import { AlertTimeout } from "../../AlertTimeout";
 import { deleteURLfromStorage } from "../../../utils/storageUtils";
+import { getShortLink } from "../../../api/Api";
 
 type Referral = {
   referralUrl: string;
@@ -53,8 +54,7 @@ export const ShortLinkStatsView = ({
 
   useEffect(() => {
     const fetch = async () => {
-      axios
-        .get(`${import.meta.env.VITE_APP_API}/action/${uuid}`)
+      getShortLink(uuid as string)
         .then((response: AxiosResponse) => {
           const apiResponse: URLDetailsType = response.data.shortLink;
 

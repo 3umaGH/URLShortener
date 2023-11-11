@@ -10,3 +10,7 @@ export const createShortLink = async (formData: CreateNewLinkProps) => {
 export const deleteShortLink = async (uuid: string) => {
   return await axios.delete(`${API_BASE_URL}/action/${uuid}`);
 };
+
+export const getShortLink = async (uuid: string) => {
+  return await axios.get(`${API_BASE_URL}/action/${uuid}`);
+}
