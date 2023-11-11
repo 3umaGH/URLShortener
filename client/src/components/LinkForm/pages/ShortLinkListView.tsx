@@ -8,6 +8,7 @@ import {
   Typography,
   Tooltip,
   CircularProgress,
+  Container,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { ShortLinkList } from "../../ShortLinkList";
@@ -108,82 +109,84 @@ export const ShortLinkListView = ({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Grid container spacing={2} sx={{ p: 2 }}>
-        <Grid item xs={12} sx={{ textAlign: "left" }}>
-          {messageAlert && (
-            <AlertTimeout
-              key={messageAlert.key}
-              message={messageAlert.message}
-            />
-          )}
-        </Grid>
-
-        <Grid item xs={12} sx={{ textAlign: "left" }}>
-          <Typography variant="h4">
-            <b>View link analytics</b>
-          </Typography>
-        </Grid>
-
-        <Grid item xs={12} sx={{ textAlign: "center" }}>
-          <ShortLinkList
-            key={isSubmitting.toString()} // Using key to rerender the component when isSubmitting state updates.
-            navigatePage={navigatePage}
-            updatePayload={updatePayload}
-          />
-        </Grid>
-
-        <Grid item xs={12} sx={{ textAlign: "left" }}>
-          <InputLabel htmlFor={"secret-key-field"} sx={{ mb: -1 }}>
-            <b>Paste secret key</b>{" "}
-            <Tooltip
-              arrow
-              enterTouchDelay={0}
-              title="If someone has provided you with their private link key, you can import it here to access link analytics."
-            >
-              <InfoOutlinedIcon
-                className="icon centerTop"
-                fontSize="small"
-                sx={{
-                  color: "gray",
-                }}
+    <Container>
+      <form onSubmit={handleSubmit}>
+        <Grid container spacing={2} sx={{ p: 2 }}>
+          <Grid item xs={12} sx={{ textAlign: "left" }}>
+            {messageAlert && (
+              <AlertTimeout
+                key={messageAlert.key}
+                message={messageAlert.message}
               />
-            </Tooltip>
-          </InputLabel>
-        </Grid>
-
-        <Grid item xs={12} sm={10} sx={{ textAlign: "left" }}>
-          <TextField
-            required
-            inputProps={{
-              minLength: 36,
-              maxLength: 36,
-            }}
-            id="secret-key-field"
-            name="uuid"
-            value={formData.uuid}
-            placeholder="Example: 550e8400-e29b-41d4-a716-446655440000"
-            variant="outlined"
-            onChange={handleChange}
-            sx={{ width: "100%" }}
-          />
-        </Grid>
-        <Grid item xs={12} sm={2} sx={{ textAlign: "left" }}>
-          <Button
-            variant="contained"
-            type="submit"
-            sx={{ width: "100%", p: 1.95 }}
-            color="secondary"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? (
-              <CircularProgress size={25} sx={{ color: "white" }} />
-            ) : (
-              "Add Link"
             )}
-          </Button>
+          </Grid>
+
+          <Grid item xs={12} sx={{ textAlign: "left" }}>
+            <Typography variant="h4">
+              <b>View link analytics</b>
+            </Typography>
+          </Grid>
+
+          <Grid item xs={12} sx={{ textAlign: "center" }}>
+            <ShortLinkList
+              key={isSubmitting.toString()} // Using key to rerender the component when isSubmitting state updates.
+              navigatePage={navigatePage}
+              updatePayload={updatePayload}
+            />
+          </Grid>
+
+          <Grid item xs={12} sx={{ textAlign: "left", mt: 9 }}>
+            <InputLabel htmlFor={"secret-key-field"} sx={{ mb: -1 }}>
+              <b>Paste secret key</b>{" "}
+              <Tooltip
+                arrow
+                enterTouchDelay={0}
+                title="If someone has provided you with their private link key, you can import it here to access link analytics."
+              >
+                <InfoOutlinedIcon
+                  className="icon centerTop"
+                  fontSize="small"
+                  sx={{
+                    color: "gray",
+                  }}
+                />
+              </Tooltip>
+            </InputLabel>
+          </Grid>
+
+          <Grid item xs={12} sm={10} sx={{ textAlign: "left" }}>
+            <TextField
+              required
+              inputProps={{
+                minLength: 36,
+                maxLength: 36,
+              }}
+              id="secret-key-field"
+              name="uuid"
+              value={formData.uuid}
+              placeholder="Example: 550e8400-e29b-41d4-a716-446655440000"
+              variant="outlined"
+              onChange={handleChange}
+              sx={{ width: "100%" }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={2} sx={{ textAlign: "left" }}>
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{ width: "100%", p: 1.95 }}
+              color="secondary"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <CircularProgress size={25} sx={{ color: "white" }} />
+              ) : (
+                "Add"
+              )}
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
-    </form>
+      </form>
+    </Container>
   );
 };
