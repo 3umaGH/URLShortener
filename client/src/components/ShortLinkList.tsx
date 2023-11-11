@@ -62,7 +62,49 @@ export const ShortLinkList = ({
     }, 300);
   }, []);
 
-  const handleRowDelete = (uuid: string) => {
+  const handleRowDelete = (uuid: string, shortURL: string) => {
+    deleteShortLink(uuid)
+      .then((response: AxiosResponse) => {
+        if (response.status === 204) {
+          sendMessage({
+            key: Date.now(),
+            message: {
+              severity: "success",
+              text: "Successfully deleted " + shortURL,
+              timeout: 1000,
+            },
+          });
+
+          deleteRow(uuid);
+        }
+      })
+      .catch((error) => {
+        let message = error.message;
+
+        if (error.response.status === 404) {
+          message = "Short link not found. Already deleted?";
+          deleteRow(uuid);
+        }
+
+        sendMessage({
+          key: Date.now(),
+          message: {
+            severity: "error",
+            text: message,
+            timeout: 6000,
+          },
+        });
+      });
+  };
+
+  const handleViewDetails = (uuid: string) => {
+    updatePayload({
+      uuid: uuid,
+    });
+    navigatePage(LINKFORM_PAGES.LINK_DETAILS);
+  };
+
+  const deleteRow = (uuid: string) => {
     setTableRows((data) => data?.filter((row) => row.uuid !== uuid));
     deleteURLfromStorage(uuid);
   };
@@ -71,15 +113,7 @@ export const ShortLinkList = ({
     return (
       <Container sx={{ m: 2 }}>
         <Tooltip title="View Analytics" arrow>
-          <IconButton
-            color="info"
-            onClick={() => {
-              updatePayload({
-                uuid: uuid,
-              });
-              navigatePage(LINKFORM_PAGES.LINK_DETAILS);
-            }}
-          >
+          <IconButton color="info" onClick={() => handleViewDetails(uuid)}>
             <VisibilityOutlinedIcon />
           </IconButton>
         </Tooltip>
@@ -87,41 +121,7 @@ export const ShortLinkList = ({
         <Tooltip title="Delete Link" arrow>
           <IconButton
             color="error"
-            onClick={() => {
-              //TODO :confirmation
-              deleteShortLink(uuid)
-                .then((response: AxiosResponse) => {
-                  if (response.status === 204) {
-                    sendMessage({
-                      key: Date.now(),
-                      message: {
-                        severity: "success",
-                        text: "Successfully deleted " + shortURL,
-                        timeout: 1000,
-                      },
-                    });
-
-                    handleRowDelete(uuid);
-                  }
-                })
-                .catch((error) => {
-                  let message = error.message;
-
-                  if (error.response.status === 404) {
-                    message = "Short link not found. Already deleted?";
-                    handleRowDelete(uuid);
-                  }
-
-                  sendMessage({
-                    key: Date.now(),
-                    message: {
-                      severity: "error",
-                      text: message,
-                      timeout: 6000,
-                    },
-                  });
-                });
-            }}
+            onClick={() => handleRowDelete(uuid, shortURL)}
           >
             <DeleteOutlineOutlinedIcon />
           </IconButton>
