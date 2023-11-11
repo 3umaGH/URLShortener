@@ -42,7 +42,7 @@ router.post("/", async (req, res) => {
       message: `URL back-half is longer than ${process.env.MAX_ORIGINAL_URL_LENGTH} characters.`,
     });
 
-  if (!isValidCharacters(req.body.shortURLPath))
+  if (!req.body.shortURLPath === "" && !isValidCharacters(req.body.shortURLPath))
     return res.status(400).json({
       message: `Only A-Z characters and numbers allowed.`,
     });
