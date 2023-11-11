@@ -5,11 +5,12 @@ import {
   DeleteOutlineOutlined as DeleteOutlineOutlinedIcon,
   VisibilityOutlined as VisibilityOutlinedIcon,
 } from "@mui/icons-material";
-import { LINKFORM_PAGES } from "../constants";
+import { AlertTimeoutProps, LINKFORM_PAGES } from "../constants";
 import { getSavedURLs } from "../utils/storageUtils";
 import { PayloadType } from "./LinkForm/LinkForm";
 
 import CircularProgress from "@mui/material/CircularProgress";
+import { AlertTimeout } from "./AlertTimeout";
 
 type TableRowProps = {
   id: number;
@@ -30,22 +31,36 @@ export const ShortLinkList = ({
   updatePayload: (newPayload: PayloadType) => void;
 }) => {
   const [tableRows, setTableRows] = useState<TableRowProps[]>();
+  const [messageAlert, sendMessage] = useState<AlertTimeoutProps>();
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     // Load data from local storage on first render
-    const savedData = getSavedURLs();
+    setTimeout(() => {
+      try {
+        setTableRows(
+          getSavedURLs().map((url) => ({
+            id: url.id || 0,
+            uuid: url.uuid,
+            shortLink: `${import.meta.env.VITE_APP_API}/${url.URLSuffix}`,
+            originalURL: url.originalURL,
+          }))
+        );
 
-    setTimeout(() => setTableRows(
-      savedData.map((url) => {
-        return {
-          id: url.id || 0,
-          uuid: url.uuid,
-          shortLink: `${import.meta.env.VITE_APP_API}/${url.URLSuffix}`,
-          originalURL: url.originalURL,
-        };
-      })
-    ),250)
-
+        setLoading(false);
+      } catch (error) {
+        sendMessage({
+          key: Date.now(),
+          message: {
+            severity: "error",
+            text: "Error mapping data",
+            timeout: 60000,
+          },
+        });
+        console.error("Error mapping data:", error);
+      }
+      setLoading(false);
+    }, 250);
   }, []);
 
   const ActionsComponent = ({ uuid }: ActionsProps) => {
@@ -99,26 +114,43 @@ export const ShortLinkList = ({
 
   return (
     <>
-      {tableRows ? (
-        <DataGrid
-          sx={{ width: "100%" }}
-          rows={tableRows}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
-              },
-            },
-          }}
-          pageSizeOptions={[5]}
-          disableRowSelectionOnClick
+      {messageAlert && (
+        <AlertTimeout
+          key={messageAlert.key}
+          message={messageAlert.message}
+          sx={{ mb: 5, mt: 1.5 }}
         />
-      ) : (
-        <Grid item xs={12} sx={{height:"370px", display:"flex", justifyContent:"center", alignItems:"center"}}>
-        <CircularProgress size={90} sx={{ color: "gray" }} />
-      </Grid>
       )}
+
+      {isLoading && (
+        <Grid
+          item
+          xs={12}
+          sx={{
+            height: "370px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress size={90} sx={{ color: "gray" }} />
+        </Grid>
+      )}
+
+      <DataGrid
+        sx={{ width: "100%" }}
+        rows={tableRows ?? []}
+        columns={columns}
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 5,
+            },
+          },
+        }}
+        pageSizeOptions={[5]}
+        disableRowSelectionOnClick
+      />
     </>
   );
 };
