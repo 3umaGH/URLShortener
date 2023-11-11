@@ -63,10 +63,8 @@ export const ShortLinkCreateView = ({
         }
       })
 
-      .catch((error: AxiosError) => {
-        const errorMessage =
-          (error.response?.data as { message?: string })?.message ||
-          "Unknown error";
+      .catch((error) => {
+        const errorMessage = error.response.data.message ?? error.message;
 
         sendMessage({
           key: Date.now(),
