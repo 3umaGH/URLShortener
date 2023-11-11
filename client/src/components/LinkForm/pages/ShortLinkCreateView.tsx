@@ -17,7 +17,7 @@ import {
 } from "@mui/icons-material";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { AlertTimeout } from "../../AlertTimeout";
-import { LINKFORM_PAGES } from "../../../constants";
+import { AlertTimeoutProps, LINKFORM_PAGES } from "../../../constants";
 import { PayloadType } from "../LinkForm";
 import { saveURLToLocalStorage } from "../../../utils/storageUtils";
 
@@ -29,12 +29,7 @@ export const ShortLinkCreateView = ({
   updatePayload: (newPayload: PayloadType) => void;
 }) => {
   const [formData, setFormData] = useState({});
-
-  const [messageAlert, sendMessage] = useState({
-    severity: "info" as "error" | "warning" | "info" | "success",
-    text: "",
-    timeout: 5000,
-  });
+  const [messageAlert, sendMessage] = useState<AlertTimeoutProps>();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -63,7 +58,7 @@ export const ShortLinkCreateView = ({
           (error.response?.data as { message?: string })?.message ||
           "Unknown error";
 
-        sendMessage({ severity: "error", text: errorMessage, timeout: 8000 });
+        sendMessage({ key:Date.now(), severity: "error", text: errorMessage, timeout: 3000 });
       });
   };
 
@@ -80,13 +75,9 @@ export const ShortLinkCreateView = ({
     <form onSubmit={handleSubmit}>
       {messageAlert && (
         <AlertTimeout
-          severity={messageAlert.severity}
-          timeout={messageAlert.timeout}
-        >
-          <Typography variant="subtitle1" fontSize={16}>
-            {messageAlert.text}
-          </Typography>
-        </AlertTimeout>
+          key={messageAlert.key}
+          message={messageAlert}
+        />
       )}
 
       <Grid container spacing={2} sx={{ p: 2 }}>

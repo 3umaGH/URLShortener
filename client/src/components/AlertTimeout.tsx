@@ -1,31 +1,24 @@
 import { useState, useEffect } from "react";
-import { Alert, Collapse } from "@mui/material";
-import { SxProps } from "@mui/system";
+import { Alert, Collapse, Typography } from "@mui/material";
+import { AlertTimeoutProps } from "../constants";
 
-type AlertTimeoutProps = {
-  severity: "error" | "warning" | "info" | "success";
-  timeout: number;
-  sx?: SxProps;
-  children: JSX.Element;
-};
-
-export const AlertTimeout = ({
-  severity,
-  timeout,
-  children,
-  sx,
-}: AlertTimeoutProps) => {
+export const AlertTimeout = ({ message }: { message: AlertTimeoutProps }) => {
   const [isVisible, setVisible] = useState(true);
 
   useEffect(() => {
-    setVisible(true);
-  }, [children, timeout]);
+    setTimeout(() => setVisible(false), message.timeout);
+  }, [message.timeout]);
 
   return (
-    <Collapse in={isVisible} timeout={1000}>
-      <Alert severity={severity} sx={sx}>
-        {children}
-      </Alert>
-    </Collapse>
+    <>
+        <Collapse in={isVisible} timeout={1000}>
+        <Alert severity={message.severity} sx={message.sx}>
+          <Typography variant="subtitle1" fontSize={16}>
+            {message.text}
+          </Typography>
+        </Alert>
+        </Collapse>
+      
+    </>
   );
 };
