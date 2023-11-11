@@ -14,3 +14,8 @@ export type AlertTimeoutProps = {
   timeout: number;
   sx?: SxProps;
 };
+
+export type CreateNewLinkProps = {
+  originalURL: string;
+  shortURLPath?: string;
+};

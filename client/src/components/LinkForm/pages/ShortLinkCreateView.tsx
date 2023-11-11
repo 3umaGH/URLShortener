@@ -16,11 +16,16 @@ import {
   InfoOutlined as InfoOutlinedIcon,
   CheckCircleOutlined as CheckCircleOutlinedIcon,
 } from "@mui/icons-material";
-import axios, { AxiosResponse, AxiosError } from "axios";
+import { AxiosResponse, AxiosError } from "axios";
 import { AlertTimeout } from "../../AlertTimeout";
-import { AlertTimeoutProps, LINKFORM_PAGES } from "../../../constants";
+import {
+  AlertTimeoutProps,
+  CreateNewLinkProps,
+  LINKFORM_PAGES,
+} from "../../../constants";
 import { PayloadType } from "../LinkForm";
 import { saveURLToLocalStorage } from "../../../utils/storageUtils";
+import { createShortLink } from "../../../api/Api";
 
 export const ShortLinkCreateView = ({
   navigatePage,
@@ -29,16 +34,18 @@ export const ShortLinkCreateView = ({
   navigatePage: (pageID: number) => void;
   updatePayload: (newPayload: PayloadType) => void;
 }) => {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState<CreateNewLinkProps>({
+    originalURL: "",
+    shortURLPath: "",
+  });
   const [messageAlert, sendMessage] = useState<AlertTimeoutProps>();
   const [isLoading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
-    axios
-      .post(`${import.meta.env.VITE_APP_API}/action`, formData)
+    createShortLink(formData)
       .then((response: AxiosResponse) => {
         if (response.data.message === "OK") {
           updatePayload({
@@ -61,7 +68,12 @@ export const ShortLinkCreateView = ({
           (error.response?.data as { message?: string })?.message ||
           "Unknown error";
 
-        sendMessage({ key:Date.now(), severity: "error", text: errorMessage, timeout: 3000 });
+        sendMessage({
+          key: Date.now(),
+          severity: "error",
+          text: errorMessage,
+          timeout: 3000,
+        });
         setLoading(false);
       });
   };
@@ -71,17 +83,14 @@ export const ShortLinkCreateView = ({
 
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: value ? value : "", // If value is undefined, set prop to ""
     });
   };
 
   return (
     <form onSubmit={handleSubmit}>
       {messageAlert && (
-        <AlertTimeout
-          key={messageAlert.key}
-          message={messageAlert}
-        />
+        <AlertTimeout key={messageAlert.key} message={messageAlert} />
       )}
 
       <Grid container spacing={2} sx={{ p: 2 }}>
@@ -178,7 +187,11 @@ export const ShortLinkCreateView = ({
             variant="contained"
             sx={{ width: "100%", p: 1.5, px: 4 }}
           >
-            {isLoading ? <CircularProgress size={25} sx={{ color: "white" }} /> : "Make your link short"}
+            {isLoading ? (
+              <CircularProgress size={25} sx={{ color: "white" }} />
+            ) : (
+              "Make your link short"
+            )}
           </Button>
         </Grid>
         <Grid item xs={12} sx={{ textAlign: "center" }}>
