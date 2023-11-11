@@ -26,7 +26,7 @@ export const NewCreatedLinkView = ({
   return (
     <>
       <Grid item xs={12} sx={{ textAlign: "center" }}>
-        <Typography variant="h3" sx={{ mb: 1 }}>
+        <Typography variant="h3" sx={{ my: 2, fontSize:58 }}>
           <b>
             Your <span style={{ color: "#3477eb" }}>new link</span> is ready!
           </b>
@@ -37,11 +37,12 @@ export const NewCreatedLinkView = ({
         </a>
       </Grid>
 
-      <Grid item xs={12} sx={{ mt: 1 }}>
-        <Divider />
+      <Grid item xs={12} sx={{ mt: 2.5 }}>
+      <Typography variant="h6">Share it seamlessly and stay informed with detailed link statistics.<br/>Streamline your online experience today!</Typography>
+        <Divider sx={{mt:5}} />
       </Grid>
 
-      <Grid item xs={12} sx={{ textAlign: "center", mt: 1 }}>
+      <Grid item xs={12} sx={{ textAlign: "center", mt: 5 }}>
         <Container>
           <InputLabel htmlFor={"secret-key-field"}>
             <b>Links Secret Key</b>{" "}
@@ -66,7 +67,7 @@ export const NewCreatedLinkView = ({
               disabled
               value={(uuid as string) ?? "N/A"}
               variant="outlined"
-              sx={{ width: "100%", color: "red" }}
+              sx={{ width: "100%", color: "red", my:2 }}
               inputProps={{
                 sx: {
                   textAlign: "center",
@@ -88,7 +89,7 @@ export const NewCreatedLinkView = ({
 
         <Button
           variant="outlined"
-          sx={{ mt: 5, fontSize: 20 }}
+          sx={{ mt: 7.5, fontSize: 25 }}
           onClick={() => navigatePage(LINKFORM_PAGES.MAIN_PAGE)}
         >
           Go Back
