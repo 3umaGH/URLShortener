@@ -16,8 +16,7 @@ const MAX_RETRIES = 3;
 router.post("/", async (req, res) => {
   if (
     !req.body.originalURL ||
-    !isValidURL(req.body.originalURL) ||
-    !isValidCharacters(req.body.originalURL)
+    !isValidURL(req.body.originalURL)
   )
     // Check if original url prop exists and is valid URL
     return res.status(400).json({
