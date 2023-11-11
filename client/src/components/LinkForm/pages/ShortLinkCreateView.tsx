@@ -16,7 +16,7 @@ import {
   InfoOutlined as InfoOutlinedIcon,
   CheckCircleOutlined as CheckCircleOutlinedIcon,
 } from "@mui/icons-material";
-import { AxiosResponse, AxiosError } from "axios";
+import { AxiosResponse} from "axios";
 import { AlertTimeout } from "../../AlertTimeout";
 import {
   AlertTimeoutProps,
