@@ -6,7 +6,9 @@ export const AlertTimeout = ({ sx, message }: AlertTimeoutProps) => {
   const [isVisible, setVisible] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setVisible(false), message.timeout);
+    const timeoutId = setTimeout(() => setVisible(false), message.timeout);
+
+    return () => clearTimeout(timeoutId);
   }, [message.timeout]);
 
   return (
