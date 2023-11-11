@@ -26,26 +26,31 @@ export const NewCreatedLinkView = ({
   return (
     <>
       <Grid item xs={12} sx={{ textAlign: "center" }}>
-        <Typography variant="h3" sx={{ my: 2, fontSize:58 }}>
+        <Typography variant="h3" sx={{ my: 2, fontSize: { xs: 32, md: 58 } }}>
           <b>
             Your <span style={{ color: "#3477eb" }}>new link</span> is ready!
           </b>
         </Typography>
         <a className="urlLink" href="#">
-          {import.meta.env.VITE_APP_API}/
-          {(URLSuffix as string) ?? "N/A"}
+          {import.meta.env.VITE_APP_API}/{(URLSuffix as string) ?? "N/A"}
         </a>
       </Grid>
 
       <Grid item xs={12} sx={{ mt: 2.5 }}>
-      <Typography variant="h6">Share it seamlessly and stay informed with detailed link statistics.<br/>Streamline your online experience today!</Typography>
-        <Divider sx={{mt:5}} />
+        <Typography variant="h6" sx={{ fontSize: { xs: 16, md: 26 } }}>
+          Share it seamlessly and stay informed with detailed link statistics.
+          <br />
+          Streamline your online experience today!
+        </Typography>
+        <Divider sx={{ mt: 5 }} />
       </Grid>
 
       <Grid item xs={12} sx={{ textAlign: "center", mt: 5 }}>
         <Container>
           <InputLabel htmlFor={"secret-key-field"}>
-            <b>Links Secret Key</b>{" "}
+            <Typography variant="body1">
+              <b>Links Secret Key</b>
+            </Typography>
             <Tooltip
               arrow
               enterTouchDelay={0}
@@ -67,7 +72,7 @@ export const NewCreatedLinkView = ({
               disabled
               value={(uuid as string) ?? "N/A"}
               variant="outlined"
-              sx={{ width: "100%", color: "red", my:2 }}
+              sx={{ width: "100%", color: "red", my: 2 }}
               inputProps={{
                 sx: {
                   textAlign: "center",

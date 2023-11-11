@@ -109,7 +109,7 @@ export const ShortLinkListView = ({
   };
 
   return (
-    <Container>
+    <Container disableGutters>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2} sx={{ p: 2 }}>
           <Grid item xs={12} sx={{ textAlign: "left" }}>
