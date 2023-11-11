@@ -109,6 +109,11 @@ export const ShortLinkCreateView = ({
           </InputLabel>
           <TextField
             fullWidth
+            required
+            inputProps={{
+              minLength: 6,
+              maxLength: 150,
+            }}
             id="long-link-field"
             name="originalURL"
             placeholder="Example: http://super-long-link.com/shorten-it"
@@ -188,6 +193,7 @@ export const ShortLinkCreateView = ({
           <Button
             type="submit"
             variant="contained"
+            disabled={isLoading}
             sx={{ width: "100%", p: 1.5, px: 4 }}
           >
             {isLoading ? (
