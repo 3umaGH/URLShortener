@@ -143,7 +143,7 @@ export const ShortLinkCreateView = ({
             }}
           />
         </Grid>
-        <Grid item xs={0.5} sx={{ textAlign: "center", mt: 4 }}>
+        <Grid item xs={0.5} sx={{ textAlign: "center", mt: 5 }}>
           <Typography variant="h5">/</Typography>
         </Grid>
         <Grid item xs={11.5} md={7.5} sx={{ textAlign: "left" }}>

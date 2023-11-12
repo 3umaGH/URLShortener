@@ -127,8 +127,8 @@ export const LinkForm = () => {
               zIndex: 0,
             }}
           >
-            <Container sx={{ p: 4 }}>
-              <Grid container spacing={2}>
+            <Container sx={{ p: {xs: 1, md:4} }}>
+              <Grid container spacing={0}>
                 {formPages.find((page) => page.id === currentPage)?.pageElement}
               </Grid>
             </Container>
