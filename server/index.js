@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
+const rateLimiter = require("./middleware/RateLimiter");
 
 require('dotenv').config()
 
@@ -11,6 +12,8 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
+
+app.use(rateLimiter);
 
 // DB
 const uri = `${process.env.MONGO_URL}`;
