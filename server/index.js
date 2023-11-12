@@ -6,7 +6,8 @@ const rateLimiter = require("./middleware/RateLimiter");
 
 require("dotenv").config();
 
-app.use(rateLimiter);
+
+app.set('trust proxy', true);
 
 app.use(
   cors({
@@ -14,6 +15,8 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
+
+app.use(rateLimiter);
 
 // DB
 const uri = `${process.env.MONGO_URL}`;
@@ -45,6 +48,6 @@ mongoose.connection.on("disconnected", () => {
 connect();
 
 app.use("/action", express.json(), require("./routes/Action"));
-app.use("/", require("./routes/ShortenedURL"));
+app.use("/l", require("./routes/ShortenedURL"));
 
 app.listen(process.env.LISTEN_PORT, "::");
