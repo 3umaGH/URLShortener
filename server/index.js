@@ -45,6 +45,10 @@ mongoose.connection.on("disconnected", () => {
 connect();
 
 app.use("/action", express.json(), require("./routes/Action"));
-app.use("/", require("./routes/ShortenedURL"));
+app.use("/api", require("./routes/ShortenedURL"));
+
+app.get("*", async (req, res) => {
+  return res.status(200, "Nothing here...");
+})
 
 app.listen(process.env.LISTEN_PORT, "::");
