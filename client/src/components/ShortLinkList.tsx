@@ -134,7 +134,7 @@ export const ShortLinkList = ({
     {
       field: "shortLink",
       headerName: "Short link",
-      flex: 0.5,
+      flex: 1.2,
       minWidth: 150,
     },
     {
