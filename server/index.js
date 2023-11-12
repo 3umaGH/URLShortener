@@ -13,9 +13,7 @@ app.use(
 );
 
 // DB
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`;
-
-//const uri = `mongodb://root:abvUdGuj46Xn78CD@95.179.187.231:27017/ShortURL`;
+const uri = `${process.env.MONGO_URL}`;
 
 // Connect to MongoDB
 const connect = () => {
