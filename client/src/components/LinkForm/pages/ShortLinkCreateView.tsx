@@ -146,7 +146,7 @@ export const ShortLinkCreateView = ({
         <Grid item xs={0.5} sx={{ textAlign: "center", mt: 5 }}>
           <Typography variant="h5">/</Typography>
         </Grid>
-        <Grid item xs={11.5} md={7.5} sx={{ textAlign: "left" }}>
+        <Grid item xs={12} md={7.5} sx={{ textAlign: "left" }}>
           <InputLabel htmlFor={"back-half-field"} sx={{ mb: 0.5 }}>
             <b>Enter a back-half</b> (optional){" "}
             <Tooltip
