@@ -6,14 +6,14 @@ const rateLimiter = require("./middleware/RateLimiter");
 
 require("dotenv").config();
 
+app.use(rateLimiter);
+
 app.use(
   cors({
     origin: "*",
     optionsSuccessStatus: 200,
   })
 );
-
-app.use(rateLimiter);
 
 // DB
 const uri = `${process.env.MONGO_URL}`;
