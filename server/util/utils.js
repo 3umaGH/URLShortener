@@ -50,6 +50,6 @@ module.exports.containsProfanity = async (string) => {
 };
 
 module.exports.isValidCharacters = (string) => {
-  const regex = /^[a-zA-Z0-9]+$/;
+  const regex = /^[a-zA-Z0-9\-_\.]+$/;
   return regex.test(string);
 };

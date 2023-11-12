@@ -42,7 +42,7 @@ router.post("/", async (req, res) => {
 
   if (req.body.shortURLPath !== "" && !isValidCharacters(req.body.shortURLPath))
     return res.status(400).json({
-      message: `Only A-Z characters and numbers are allowed in back-half!`,
+      message: `Only A-Z, numbers and .-_ characters are allowed in back-half!`,
     });
 
   if (
