@@ -14,6 +14,9 @@ router.get("/:url", async (req, res) => {
     req.headers["x-forwarded-for"] || req.socket.remoteAddress
   );
 
+  console.log("xforwarded", req.headers["x-forwarded-for"])
+  console.log("remote:", req.socket.remoteAddress)
+
   const shortLink = await ShortURL.findOne({ URLSuffix: URLSuffix }).exec();
 
   if (shortLink) {
