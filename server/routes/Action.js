@@ -39,7 +39,7 @@ router.post("/", async (req, res) => {
     req.body.shortURLPath.length > process.env.MAX_CUSTOM_SUFFIX_LENGTH
   )
     return res.status(400).json({
-      message: `URL back-half is longer than ${process.env.MAX_ORIGINAL_URL_LENGTH} characters.`,
+      message: `URL back-half is longer than ${process.env.MAX_CUSTOM_SUFFIX_LENGTH} characters.`,
     });
 
   if (req.body.shortURLPath !== "" && !isValidCharacters(req.body.shortURLPath))
