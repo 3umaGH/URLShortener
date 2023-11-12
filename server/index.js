@@ -4,7 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const rateLimiter = require("./middleware/RateLimiter");
 
-require('dotenv').config()
+require("dotenv").config();
 
 app.use(
   cors({
@@ -20,7 +20,7 @@ const uri = `${process.env.MONGO_URL}`;
 
 // Connect to MongoDB
 const connect = () => {
-  mongoose.connect(uri);
+  mongoose.connect(uri, { dbName: process.env.DB_NAME });
 };
 
 // Listen for the connection event
@@ -44,7 +44,7 @@ mongoose.connection.on("disconnected", () => {
 
 connect();
 
-app.use("/action",express.json(), require("./routes/Action"));
+app.use("/action", express.json(), require("./routes/Action"));
 app.use("/", require("./routes/ShortenedURL"));
 
 app.listen(process.env.LISTEN_PORT);
