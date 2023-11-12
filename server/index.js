@@ -47,4 +47,4 @@ connect();
 app.use("/action", express.json(), require("./routes/Action"));
 app.use("/", require("./routes/ShortenedURL"));
 
-app.listen(process.env.LISTEN_PORT);
+app.listen(process.env.LISTEN_PORT, "::");
