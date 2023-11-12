@@ -24,6 +24,9 @@ module.exports.getGeoInfo = async (clientIP) => {
   try {
     const response = await fetch(`http://ip-api.com/json/${clientIP}`);
     const json = await response.json();
+
+    console.log(json);
+
     return json.status === "success" ? json.country : "Unknown country";
   } catch (error) {
     console.error("Error fetching IP information:", error);
