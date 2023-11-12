@@ -11,11 +11,8 @@ router.get("/:url", async (req, res) => {
 
   const referralUrl = req.get("Referer") || "Direct connection";
   const country = await getGeoInfo(
-    req.headers["x-forwarded-for"] || req.socket.remoteAddress
+    req.headers["x-forwarded-for"].split(", ")[0] || req.socket.remoteAddress // Splitting headers is used when API is behind a proxy and header get's chained, we are getting the first IP.
   );
-
-  console.log("xforwarded", req.headers["x-forwarded-for"])
-  console.log("remote:", req.socket.remoteAddress)
 
   const shortLink = await ShortURL.findOne({ URLSuffix: URLSuffix }).exec();
 
