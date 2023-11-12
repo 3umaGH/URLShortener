@@ -31,7 +31,7 @@ export const NewCreatedLinkView = ({
             Your <span style={{ color: "#3477eb" }}>new link</span> is ready!
           </b>
         </Typography>
-        <a className="urlLink" href={`${import.meta.env.VITE_APP_API}/${(URLSuffix as string) ?? "N/A"}`}>
+        <a className="urlLink" href={`${import.meta.env.VITE_APP_API}/${(URLSuffix as string) ?? "N/A"}`} target="_blank" rel="noopener noreferrer">
           {import.meta.env.VITE_APP_API}/{(URLSuffix as string) ?? "N/A"}
         </a>
       </Grid>
