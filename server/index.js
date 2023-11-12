@@ -7,7 +7,7 @@ const rateLimiter = require("./middleware/RateLimiter");
 require("dotenv").config();
 
 
-app.set('trust proxy', true);
+app.set('trust proxy', 1);
 
 app.use(
   cors({
