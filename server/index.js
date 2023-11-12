@@ -6,7 +6,7 @@ const rateLimiter = require("./middleware/RateLimiter");
 
 require("dotenv").config();
 
-//app.use(rateLimiter);
+app.use(rateLimiter);
 
 app.use(
   cors({
@@ -45,6 +45,6 @@ mongoose.connection.on("disconnected", () => {
 connect();
 
 app.use("/action", express.json(), require("./routes/Action"));
-app.use("*", require("./routes/ShortenedURL"));
+app.use("/", require("./routes/ShortenedURL"));
 
 app.listen(process.env.LISTEN_PORT, "::");
