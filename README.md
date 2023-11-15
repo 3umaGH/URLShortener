@@ -25,8 +25,5 @@ This URL Shortener project allows users to create short links for easy sharing a
 4. **Full Stack Implementation:**
    - Both the backend and frontend were coded independently.
 
-5. **Deployment:**
-   - The project is successfully deployed and hosted on [railway.app](https://dashlink.xyz/).
-
 ## Live Demo
-Explore the live deployment [here](<insert-link-here>).
+Explore the live deployment [here](https://dashlink.xyz/).
