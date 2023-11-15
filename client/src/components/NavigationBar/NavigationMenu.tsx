@@ -9,8 +9,8 @@ export const logoSource =
 
 export const NavigationMenu = () => {
   const paths = [
-    { title: "Products", link: "/" },
-    { title: "Analytics", link: "/" },
+    { title: "Placeholder", link: "/" },
+    { title: "Placeholder", link: "/" },
   ];
 
   return (
